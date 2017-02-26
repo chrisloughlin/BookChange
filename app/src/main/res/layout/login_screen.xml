@@ -45,15 +45,19 @@
         android:background="@drawable/username_password_rect"
         android:layout_gravity="center"/>
     <Button
+        android:id="@+id/LogIn"
         android:layout_width="@dimen/button_size"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_gravity="center"
+        android:onClick="onLoginClicked"
         android:text="Log In"/>
     <Button
+        android:id="@+id/CreateAccount"
         android:layout_width="@dimen/button_size"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:onClick="onCreateClicked"
         android:text="Create Account"/>
 
 </LinearLayout>
