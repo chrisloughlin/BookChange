@@ -2,6 +2,7 @@ package com.example.bookchange.bookchange;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -100,6 +101,9 @@ public class MainActivity extends AppCompatActivity
                 public void onClick(DialogInterface dialog, int which) {
                     // The 'which' argument contains the index position
                     // launch an activity with the department's courses on click
+                    Intent intent = new Intent(getActivity(), CourseSelect.class);
+                    intent.putExtra("department_int", which);
+                    startActivity(intent);
                 }
             });
 
