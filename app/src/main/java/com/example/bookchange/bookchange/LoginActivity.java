@@ -21,16 +21,21 @@ public class LoginActivity extends AppCompatActivity {
     public void onLoginClicked (View button){
         boolean loginResult = checkLogin();
         if(loginResult){
-
+            Intent intent = new Intent(this,MainActivity.class);
+            this.startActivity(intent);
+            finish();
         }
         else{
-
+            Intent intent = new Intent(this,MainActivity.class);
+            this.startActivity(intent);
+            finish();
         }
     }
 
     public void onCreateAccountClicked (View button){
         Intent intent = new Intent(this,CreateAccountActivity.class);
         this.startActivity(intent);
+        finish();
     }
 
     public boolean checkLogin(){
