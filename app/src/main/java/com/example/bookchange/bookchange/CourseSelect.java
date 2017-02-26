@@ -3,7 +3,11 @@ package com.example.bookchange.bookchange;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * Created by Ted on 2/26/2017.
@@ -34,5 +38,12 @@ public class CourseSelect extends AppCompatActivity {
         Resources res = getResources();
         String[] departments = res.getStringArray(R.array.departments_array);
         departmentTitle.setText(departments[departmentInt]);
+
+        // set up the listView
+        ListView coursesListView = (ListView) findViewById(R.id.list);
+        String[] courses = { "CS 1", "CS 10", "CS 30", "CS 50", "CS 65" };
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, courses);
+        coursesListView.setAdapter(adapter);
     }
 }
