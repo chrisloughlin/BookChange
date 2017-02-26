@@ -1,5 +1,6 @@
 package com.example.bookchange.bookchange;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,10 +19,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLoginClicked (View button){
+        boolean loginResult = checkLogin();
+        if(loginResult){
 
+        }
+        else{
+
+        }
     }
 
-    public void onCreateClicked (View button){
+    public void onCreateAccountClicked (View button){
+        Intent intent = new Intent(this,CreateAccountActivity.class);
+        this.startActivity(intent);
+    }
 
+    public boolean checkLogin(){
+        return false;
     }
 }

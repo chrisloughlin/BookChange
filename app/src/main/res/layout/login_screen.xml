@@ -57,7 +57,7 @@
         android:layout_width="@dimen/button_size"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:onClick="onCreateClicked"
+        android:onClick="onCreateAccountClicked"
         android:text="Create Account"/>
 
 </LinearLayout>
