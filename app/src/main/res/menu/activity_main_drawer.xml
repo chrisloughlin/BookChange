@@ -14,8 +14,11 @@
     <item android:title="Account">
         <menu>
             <item
-                android:id="@+id/nav_settings"
-                android:title="Settings" />
+                android:id="@+id/nav_listings"
+                android:title="Your Listings" />
+            <item
+                android:id="@+id/nav_subscriptions"
+                android:title="Subscriptions"/>
 
         </menu>
     </item>
