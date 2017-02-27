@@ -13,8 +13,10 @@
     tools:context="com.example.bookchange.bookchange.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:id="@+id/frag"></FrameLayout>
+
+
 </RelativeLayout>

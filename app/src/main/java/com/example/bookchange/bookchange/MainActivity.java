@@ -58,7 +58,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Go to the home fragment
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            HomeFragment fragment = new HomeFragment();
+            fragmentTransaction.replace(R.id.frag, fragment);
+            fragmentTransaction.commit();
         } else if (id == R.id.nav_department) {
             DialogFragment newFrag = new DepartmentsFrag();
             newFrag.show(getSupportFragmentManager(), "departmentsDialogFragment");
@@ -67,7 +71,7 @@ public class MainActivity extends AppCompatActivity
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             SubscriptionsFragment fragment = new SubscriptionsFragment();
-            fragmentTransaction.add(R.id.content_main, fragment);
+            fragmentTransaction.replace(R.id.frag, fragment);
             fragmentTransaction.commit();
         }
 
@@ -75,6 +79,15 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void onAddSubscriptionClicked(View view){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        SubscriptionsFragment fragment = new SubscriptionsFragment();
+        fragmentTransaction.replace(R.id.frag, fragment);
+        fragmentTransaction.commit();
+    }
+
 
     public static class DepartmentsFrag extends DialogFragment {
 
