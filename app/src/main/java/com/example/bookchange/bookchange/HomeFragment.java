@@ -43,11 +43,12 @@ public class HomeFragment extends Fragment{
             subButton.setVisibility(View.GONE);
             textView.setVisibility(View.GONE);
             textView2.setVisibility(View.GONE);
-        }
-        else {
-            listView = (ListView) view.findViewById(R.id.list_view);
+            listView = (ListView) view.findViewById(R.id.home_list_view);
             adapter = new BookListingAdapter(getActivity(), listings);
             listView.setAdapter(adapter);
+        }
+        else {
+
         }
         return view;
     }

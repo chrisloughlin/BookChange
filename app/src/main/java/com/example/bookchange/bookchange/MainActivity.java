@@ -22,10 +22,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private BookchangeAccount account;
+    private ArrayList<Fragment> frags;
+    private final int HOME_INDEX = 0;
+    private final int SUB_INDEX = 1;
+    private final int LISTINGS_INDEX = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,13 +43,17 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        frags = new ArrayList<>();
+        frags.add(new HomeFragment());
+        frags.add(new SubscriptionsFragment());
+        frags.add(new YourListings());
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         account = new BookchangeAccount("chrisloughlin","crlough18@gmail.com");
 
         if(savedInstanceState==null){
-            Fragment fragment = new HomeFragment();
+            HomeFragment fragment = (HomeFragment)frags.get(HOME_INDEX);
             android.app.FragmentManager fragmentManager = getFragmentManager();
             android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frag , fragment);
@@ -73,7 +83,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            HomeFragment fragment = new HomeFragment();
+            HomeFragment fragment = (HomeFragment)frags.get(HOME_INDEX);
             fragmentTransaction.replace(R.id.frag, fragment);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_department) {
@@ -83,14 +93,14 @@ public class MainActivity extends AppCompatActivity
             // launch the subscription fragment (Preferences fragment?)
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            SubscriptionsFragment fragment = new SubscriptionsFragment();
+            SubscriptionsFragment fragment = (SubscriptionsFragment)frags.get(SUB_INDEX);
             fragmentTransaction.replace(R.id.frag, fragment);
             fragmentTransaction.commit();
         }
         else if (id == R.id.nav_listings){
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            YourListings fragment = new YourListings();
+            YourListings fragment = (YourListings)frags.get(LISTINGS_INDEX);
             fragmentTransaction.replace(R.id.frag, fragment);
             fragmentTransaction.commit();
         }
@@ -118,6 +128,10 @@ public class MainActivity extends AppCompatActivity
 
     public void addSubToAccount(String className){
         account.addSubscription(className);
+    }
+
+    public void removeSubFromAccount(String className){
+        account.removeSubscription(className);
     }
 
 

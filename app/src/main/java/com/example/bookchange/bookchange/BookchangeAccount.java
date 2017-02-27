@@ -23,6 +23,11 @@ public class BookchangeAccount {
         }
     }
 
+    public void removeSubscription(String subscription){
+        if(subscriptions.contains(subscription)){
+            subscriptions.remove(subscription);
+        }
+    }
     public String getAccountName(){return accountName;}
 
     public String getEmailAddress() {
