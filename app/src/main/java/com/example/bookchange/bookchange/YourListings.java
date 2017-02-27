@@ -1,10 +1,12 @@
 package com.example.bookchange.bookchange;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,6 +17,8 @@ import java.util.ArrayList;
  */
 
 public class YourListings extends Fragment {
+    private final String ENTRY_KEY = "ENTRY_ID";
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -32,10 +36,20 @@ public class YourListings extends Fragment {
         ListView listView = (ListView) mView.findViewById(R.id.your_postings_list);
         BookListingDataSource dataSource = new BookListingDataSource(getActivity());
         dataSource.open();
-        ArrayList<BookListing> listings = dataSource.fetchEntriesByPosterUsername(account.getAccountName());
+        final ArrayList<BookListing> listings = dataSource.fetchEntriesByPosterUsername(account.getAccountName());
         dataSource.close();
         BookListingAdapter adapter = new BookListingAdapter(getActivity(), listings);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent;
+                intent = new Intent(getActivity(), DisplayListingActivity.class);
+                long entryId = listings.get(position).getId();
+                intent.putExtra(ENTRY_KEY, entryId);
+                getActivity().startActivity(intent);
+            }
+        });
 
         return mView;
     }

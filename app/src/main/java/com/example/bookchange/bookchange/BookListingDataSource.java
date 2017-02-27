@@ -121,6 +121,7 @@ public class BookListingDataSource {
         String bookTitle = cursor.getString(cursor.getColumnIndex(BookListingDbHelper.KEY_BOOK_TITLE));
         String className = cursor.getString(cursor.getColumnIndex(BookListingDbHelper.KEY_CLASS_NAME));
         BookListing entry = new BookListing(posterUsername, price, bookTitle, className);
+        entry.setId(cursor.getLong(cursor.getColumnIndex(BookListingDbHelper.KEY_ROWID)));
         return entry;
     }
 

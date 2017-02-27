@@ -8,6 +8,13 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:id="@+id/title_course"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/subtext_size"
+        android:textColor="@color/black"
+        android:text="No Listings Found"
+        android:id="@+id/no_listings_text"/>
 
     <ListView
         android:id="@+id/course_listings"

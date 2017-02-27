@@ -4,18 +4,18 @@
         android:title="Subscription Preferences">
         <CheckBoxPreference
             android:key="cs1_subscription"
-            android:title="CS1"/>
+            android:title="CS 1"/>
         <CheckBoxPreference
             android:key="cs10_subscription"
-            android:title="CS10" />
+            android:title="CS 10" />
         <CheckBoxPreference
             android:key="cs30_subscription"
-            android:title="CS30" />
+            android:title="CS 30" />
         <CheckBoxPreference
             android:key="cs50_subscription"
-            android:title="CS50" />
+            android:title="CS 50" />
         <CheckBoxPreference
             android:key="cs65_subscription"
-            android:title="CS65" />
+            android:title="CS 65" />
     </PreferenceCategory>
 </PreferenceScreen>

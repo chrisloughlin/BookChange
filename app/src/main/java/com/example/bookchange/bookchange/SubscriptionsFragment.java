@@ -2,6 +2,7 @@ package com.example.bookchange.bookchange;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.PreferenceFragment;
 import android.util.Log;
 
@@ -19,7 +20,12 @@ public class SubscriptionsFragment extends PreferenceFragment implements SharedP
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key){
-
+       /* MainActivity mainActivity = (MainActivity)getActivity();
+        boolean checked = sharedPreferences.getBoolean(key, false);
+        String subToAdd = sharedPreferences.getString(key,"-1");
+        if(!subToAdd.equals("-1")) {
+            mainActivity.addSubToAccount(subToAdd);
+        }*/
     }
 
     @Override

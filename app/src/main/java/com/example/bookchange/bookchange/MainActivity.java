@@ -116,6 +116,10 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    public void addSubToAccount(String className){
+        account.addSubscription(className);
+    }
+
 
     public static class DepartmentsFrag extends DialogFragment {
 

@@ -26,13 +26,16 @@ public class CreateListingActivity extends AppCompatActivity {
         String price = ((EditText)findViewById(R.id.priceEditText)).getText().toString();
         String courseName = ((EditText)findViewById(R.id.courseNameEditText)).getText().toString();
         if (bookTitle.equals("")){
-            Toast.makeText(this,"Add Book Title",Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this,"Add Book Title",Toast.LENGTH_SHORT);
+            toast.show();
         }
         else  if (price.equals("")){
-            Toast.makeText(this,"Add Price",Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this,"Add Price",Toast.LENGTH_SHORT);
+            toast.show();
         }
         else if (courseName.equals("")){
-            Toast.makeText(this,"Add Course Name",Toast.LENGTH_SHORT);
+           Toast toast = Toast.makeText(this,"Add Course Name",Toast.LENGTH_SHORT);
+            toast.show();
         }
         else {
             BookListing bookListing = new BookListing(accountName, Double.parseDouble(price), bookTitle, courseName);

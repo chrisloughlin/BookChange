@@ -1,11 +1,15 @@
 package com.example.bookchange.bookchange;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,6 +22,7 @@ import java.util.ArrayList;
 
 public class CourseSelect extends Fragment {
     private int departmentInt;
+    private final String COURSE_KEY = "course_name";
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -38,10 +43,24 @@ public class CourseSelect extends Fragment {
 
         // set up the listView
         ListView coursesListView = (ListView) mView.findViewById(R.id.list);
-        String[] courses = { "CS 1", "CS 10", "CS 30", "CS 50", "CS 65" };
+        final String[] courses = { "CS 1", "CS 10", "CS 30", "CS 50", "CS 65" };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_1, courses);
         coursesListView.setAdapter(adapter);
+        coursesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CourseView fragment = new CourseView();
+                Bundle bundle = new Bundle();
+                String courseName = courses[position];
+                bundle.putString(COURSE_KEY,courseName);
+                fragment.setArguments(bundle);
+                FragmentManager fragmentManager = getActivity().getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frag, fragment);
+                fragmentTransaction.commit();
+            }
+        });
 
         return mView;
     }

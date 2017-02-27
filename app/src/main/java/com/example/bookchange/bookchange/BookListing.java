@@ -5,7 +5,7 @@ package com.example.bookchange.bookchange;
  */
 
 public class BookListing {
-    private int mId;
+    private Long mId;
     private String mPosterUsername;
     private double mPrice;
     private String mBookTitle;
@@ -18,9 +18,9 @@ public class BookListing {
         mClassName = className;
     }
 
-    public void setId(int id){mId = id;}
+    public void setId(Long id){mId = id;}
 
-    public int getId(){return mId;}
+    public Long getId(){return mId;}
     public String getPosterUsername(){return mPosterUsername;}
     public double getPrice(){return mPrice;}
     public String getBookTitle(){return mBookTitle;}
