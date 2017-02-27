@@ -1,6 +1,8 @@
 package com.example.bookchange.bookchange;
 
 import android.app.Dialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -60,8 +62,13 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_department) {
             DialogFragment newFrag = new DepartmentsFrag();
             newFrag.show(getSupportFragmentManager(), "departmentsDialogFragment");
-        } else if (id == R.id.nav_settings) {
-
+        } else if (id == R.id.nav_subscriptions) {
+            // launch the subscription fragment (Preferences fragment?)
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            SubscriptionsFragment fragment = new SubscriptionsFragment();
+            fragmentTransaction.add(R.id.content_main, fragment);
+            fragmentTransaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

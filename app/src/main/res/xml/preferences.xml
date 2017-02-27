@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Subscription Preferences">
+        <CheckBoxPreference
+            android:key="cs1_subscription"
+            android:title="CS1"/>
+        <CheckBoxPreference
+            android:key="cs10_subscription"
+            android:title="CS10" />
+        <CheckBoxPreference
+            android:key="cs30_subscription"
+            android:title="CS30" />
+        <CheckBoxPreference
+            android:key="cs50_subscription"
+            android:title="CS50" />
+        <CheckBoxPreference
+            android:key="cs65_subscription"
+            android:title="CS65" />
+    </PreferenceCategory>
+</PreferenceScreen>
