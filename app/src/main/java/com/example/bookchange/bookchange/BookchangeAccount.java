@@ -9,10 +9,11 @@ import java.util.ArrayList;
 public class BookchangeAccount {
     private String accountName;
     private String emailAddress;
-    private ArrayList<String> subscriptions = new ArrayList<String>();
+    private ArrayList<String> subscriptions = new ArrayList<>();
 
-    public BookchangeAccount(String accountName, String emailAddress){
-
+    public BookchangeAccount(String name, String address){
+        accountName = name;
+        emailAddress = address;
 
     }
 
@@ -20,6 +21,16 @@ public class BookchangeAccount {
         if(!subscriptions.contains(subscription)){
           subscriptions.add(subscription);
         }
+    }
+
+    public String getAccountName(){return accountName;}
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public ArrayList<String> getSubscriptions() {
+        return subscriptions;
     }
 
 }

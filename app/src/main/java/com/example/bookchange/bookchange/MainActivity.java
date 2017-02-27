@@ -1,6 +1,7 @@
 package com.example.bookchange.bookchange;
 
 import android.app.Dialog;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
@@ -24,6 +25,7 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private BookchangeAccount account;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +40,18 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        account = new BookchangeAccount("chrisloughlin","crlough18@gmail.com");
+
+        if(savedInstanceState==null){
+            Fragment fragment = new HomeFragment();
+            android.app.FragmentManager fragmentManager = getFragmentManager();
+            android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frag , fragment);
+            fragmentTransaction.commit();
+        }
     }
+
+    public BookchangeAccount getAccount(){return  account;}
 
     @Override
     public void onBackPressed() {
@@ -74,8 +87,17 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.frag, fragment);
             fragmentTransaction.commit();
         }
+        else if (id == R.id.nav_listings){
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            YourListings fragment = new YourListings();
+            fragmentTransaction.replace(R.id.frag, fragment);
+            fragmentTransaction.commit();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setSelected(false);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
