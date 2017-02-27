@@ -110,6 +110,12 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
+    public void onCreateListingClicked(View view){
+        Intent intent = new Intent(this,CreateListingActivity.class);
+        intent.putExtra("account_name",account.getAccountName());
+        startActivity(intent);
+    }
+
 
     public static class DepartmentsFrag extends DialogFragment {
 

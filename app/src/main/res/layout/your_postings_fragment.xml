@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Create Listing"
+        android:onClick="onCreateListingClicked"
         android:layout_marginTop="20dp"/>
 
     <TextView
