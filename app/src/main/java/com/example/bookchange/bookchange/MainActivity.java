@@ -100,9 +100,14 @@ public class MainActivity extends AppCompatActivity
                 public void onClick(DialogInterface dialog, int which) {
                     // The 'which' argument contains the index position
                     // launch an activity with the department's courses on click
-                    Intent intent = new Intent(getActivity(), CourseSelect.class);
-                    intent.putExtra("department_int", which);
-                    startActivity(intent);
+                    Bundle bundle = new Bundle();
+                    CourseSelect fragment = new CourseSelect();
+                    bundle.putInt("department_int", which);
+                    fragment.setArguments(bundle);
+                    FragmentManager fragmentManager = getActivity().getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.frag, fragment);
+                    fragmentTransaction.commit();
                 }
             });
 
