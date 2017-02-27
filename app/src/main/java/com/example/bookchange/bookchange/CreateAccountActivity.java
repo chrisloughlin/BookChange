@@ -16,6 +16,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         setContentView(R.layout.create_account);
     }
 
+    // go to the main activity when create is clicked--temporary for demo
     public void onCreateClicked (View button){
         Intent intent = new Intent(this,MainActivity.class);
         this.startActivity(intent);

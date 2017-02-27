@@ -50,6 +50,7 @@ public class CourseSelect extends Fragment {
         coursesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // start a fragment with info about the clicked course
                 CourseView fragment = new CourseView();
                 Bundle bundle = new Bundle();
                 String courseName = courses[position];
