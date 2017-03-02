@@ -53,4 +53,6 @@ public class YourListings extends Fragment {
 
         return mView;
     }
+
+    //TODO make the listings update as soon as one is created
 }
