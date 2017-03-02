@@ -25,13 +25,11 @@ public class CreateAccountActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_account);
+
         // set up text
         EditText mEmailField = (EditText) findViewById(R.id.emailField);
         EditText mUsernameField = (EditText) findViewById(R.id.usernameField);
         EditText mPasswordField = (EditText) findViewById(R.id.passwordField);
-
-        // set up buttons
-
 
         // initialize instance of FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
@@ -65,7 +63,9 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     // method that registers the account
-    public void
+    public void registerAccount(String email, String password){
+
+    }
 
     // go to the main activity when create is clicked--temporary for demo
     public void onCreateClicked (View button){
