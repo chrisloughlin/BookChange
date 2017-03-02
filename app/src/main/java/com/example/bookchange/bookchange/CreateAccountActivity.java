@@ -112,7 +112,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     // method to validate input
-    private boolean validateInput() {
+    public boolean validateInput() {
         boolean isValid = true;
 
         String email = mEmailField.getText().toString();

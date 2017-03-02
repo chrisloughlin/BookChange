@@ -19,9 +19,9 @@
         android:layout_gravity="center"
         android:textColor="@color/white"
         android:textSize="@dimen/subtext_size"
-        android:text="Username"/>
+        android:text="Email"/>
     <EditText
-        android:id="@+id/username_edit_text"
+        android:id="@+id/email_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
