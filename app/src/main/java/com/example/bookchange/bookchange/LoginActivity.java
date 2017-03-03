@@ -26,14 +26,10 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mEmailField;
     private EditText mPasswordField;
 
-    private boolean loggedIn;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_screen);
-
-        loggedIn = false;
 
         // set up text input
         mEmailField = (EditText) findViewById(R.id.email_edit_text);
@@ -49,11 +45,10 @@ public class LoginActivity extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     Log.d("LoginTAG", "onAuthStateChanged:signed_in:" + user.getUid());
-                    loggedIn = true;
+                    startMain();
                 } else {
                     // User is signed out
                     Log.d("LoginTAG", "onAuthStateChanged:signed_out");
-                    loggedIn = false;
                 }
             }
         };
@@ -118,17 +113,14 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    public void startMain(){
+        Intent intent = new Intent(this,MainActivity.class);
+        this.startActivity(intent);
+        finish();
+    }
+
     public void onLoginClicked (View button){
         logIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
-
-        if(loggedIn){
-            Intent intent = new Intent(this,MainActivity.class);
-            this.startActivity(intent);
-            finish();
-        }
-        else{
-            return;
-        }
     }
 
     public void onCreateAccountClicked (View button){

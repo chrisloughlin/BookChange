@@ -52,10 +52,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 if(user != null) {
                     // User is signed in
                     // set up (Should we have a global with the Uid?)
-//                    String userName = mUsernameField.getText().toString();
-//                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-//                            .setDisplayName(userName).build();
-//                    user.updateProfile(profileUpdates);
+
                 } else {
                     // User is signed out
                 }
@@ -178,11 +175,11 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         // wait for a while so the account can be registered
         // and the email sent
-//        try{
-//            Thread.sleep(500);
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
+        try{
+            Thread.sleep(500);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
         // go to the Login activity
 //        Intent intent = new Intent(this,LoginActivity.class);
