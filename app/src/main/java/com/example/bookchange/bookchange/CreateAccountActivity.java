@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 /**
  * Created by christopher on 2/26/17.
@@ -22,6 +24,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     // email and password edittexts
     private EditText mEmailField;
     private EditText mPasswordField;
+    private EditText mConfirmField;
     private EditText mUsernameField;
 
     // required for Firebase authentication
@@ -37,6 +40,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         mEmailField = (EditText) findViewById(R.id.emailField);
         mUsernameField = (EditText) findViewById(R.id.usernameField);
         mPasswordField = (EditText) findViewById(R.id.passwordField);
+        mConfirmField = (EditText) findViewById(R.id.passwordField2);
 
         // initialize instance of FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
@@ -48,6 +52,10 @@ public class CreateAccountActivity extends AppCompatActivity {
                 if(user != null) {
                     // User is signed in
                     // set up (Should we have a global with the Uid?)
+                    String userName = mUsernameField.getText().toString();
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(userName).build();
+                    user.updateProfile(profileUpdates);
                 } else {
                     // User is signed out
                 }
@@ -82,8 +90,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             // If creating the account fails, show a message
                             if (!task.isSuccessful()) {
-                                Toast.makeText(CreateAccountActivity.this, "Authentication failed!"
-                                        , Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CreateAccountActivity.this,
+                                        "Account creation failed!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -91,8 +99,10 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     private void sendVerificationEmail(){
+        Log.d("EmailTAG", "got into the sendVerificationEmail function");
         final FirebaseUser user = mAuth.getCurrentUser();
         if(user != null) {
+            Log.d("EmailTAG", "got into the if statement");
             user.sendEmailVerification()
                     .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                         @Override
@@ -124,28 +134,43 @@ public class CreateAccountActivity extends AppCompatActivity {
         }
 
         String password = mPasswordField.getText().toString();
+        String password2 = mConfirmField.getText().toString();
         if (password.equals("")) {
             mPasswordField.setError("Required");
             isValid = false;
-        } else {
-            mPasswordField.setError(null);
         }
 
-        // don't worry about the username yet
+        else if (!password.equals(password2)){
+            mPasswordField.setError("Must match");
+            mConfirmField.setError("Must match");
+            isValid = false;
+        }
+
+        else {
+            mPasswordField.setError(null);
+            mConfirmField.setError(null);
+        }
+
+        String userName = mUsernameField.getText().toString();
+        if (userName.equals("")) {
+            mUsernameField.setError("Required");
+            isValid = false;
+        } else {
+            mUsernameField.setError(null);
+        }
 
         return isValid;
     }
 
-    // go to the main activity when create is clicked--temporary for demo
     public void onCreateClicked (View button){
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
         registerAccount(email, password);
         sendVerificationEmail();
         // go to the main activity (the user is logged in by default when the account is created)
-        Intent intent = new Intent(this,MainActivity.class);
-        this.startActivity(intent);
-        finish();
+//        Intent intent = new Intent(this,MainActivity.class);
+//        this.startActivity(intent);
+//        finish();
     }
 
     // go back to the loginActivity
