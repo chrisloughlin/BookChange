@@ -52,10 +52,10 @@ public class CreateAccountActivity extends AppCompatActivity {
                 if(user != null) {
                     // User is signed in
                     // set up (Should we have a global with the Uid?)
-                    String userName = mUsernameField.getText().toString();
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(userName).build();
-                    user.updateProfile(profileUpdates);
+//                    String userName = mUsernameField.getText().toString();
+//                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+//                            .setDisplayName(userName).build();
+//                    user.updateProfile(profileUpdates);
                 } else {
                     // User is signed out
                 }
@@ -96,6 +96,14 @@ public class CreateAccountActivity extends AppCompatActivity {
                         }
                     });
         }
+
+        final FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null){
+            String userName = mUsernameField.getText().toString();
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(userName).build();
+            user.updateProfile(profileUpdates);
+        }
     }
 
     private void sendVerificationEmail(){
@@ -107,7 +115,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                     .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-
+                            Log.d("EmailTAG", "task got completed");
                             if (task.isSuccessful()) {
                                 Toast.makeText(CreateAccountActivity.this,
                                         "Verification email sent to" + " " + user.getEmail(),
@@ -167,8 +175,17 @@ public class CreateAccountActivity extends AppCompatActivity {
         String password = mPasswordField.getText().toString();
         registerAccount(email, password);
         sendVerificationEmail();
-        // go to the main activity (the user is logged in by default when the account is created)
-//        Intent intent = new Intent(this,MainActivity.class);
+
+        // wait for a while so the account can be registered
+        // and the email sent
+//        try{
+//            Thread.sleep(500);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+
+        // go to the Login activity
+//        Intent intent = new Intent(this,LoginActivity.class);
 //        this.startActivity(intent);
 //        finish();
     }
