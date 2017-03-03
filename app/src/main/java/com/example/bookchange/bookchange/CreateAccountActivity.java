@@ -142,6 +142,10 @@ public class CreateAccountActivity extends AppCompatActivity {
         String password = mPasswordField.getText().toString();
         registerAccount(email, password);
         sendVerificationEmail();
+        // go to the main activity (the user is logged in by default when the account is created)
+        Intent intent = new Intent(this,MainActivity.class);
+        this.startActivity(intent);
+        finish();
     }
 
     // go back to the loginActivity

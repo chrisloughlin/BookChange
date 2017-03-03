@@ -26,17 +26,21 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mEmailField;
     private EditText mPasswordField;
 
-    private boolean loggedIn = false;
+    private boolean loggedIn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_screen);
 
+        loggedIn = false;
+
         // set up text input
         mEmailField = (EditText) findViewById(R.id.email_edit_text);
         mPasswordField = (EditText) findViewById(R.id.password_edit_text);
 
+        // set up firebase
+        FirebaseAuth.getInstance().signOut(); // sign out user when login screen is opened
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -123,9 +127,7 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
         else{
-            Intent intent = new Intent(this,MainActivity.class);
-            this.startActivity(intent);
-            finish();
+            return;
         }
     }
 
