@@ -11,8 +11,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
@@ -52,7 +54,31 @@ public class CreateAccountActivity extends AppCompatActivity {
                 if(user != null) {
                     // User is signed in
                     // set up (Should we have a global with the Uid?)
+                    Log.d("OtherTAG", "Got past getting current user");
+                    if (user != null){
+                        Log.d("OtherTAG", "Got into the if statement");
+                        String userName = mUsernameField.getText().toString();
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(userName).build();
+                        user.updateProfile(profileUpdates);
 
+                        Log.d("EmailTAG", "got into the if statement");
+                        user.sendEmailVerification();
+//                                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<Void> task) {
+//                                        Log.d("EmailTAG", "task got completed");
+//                                        if (task.isSuccessful()) {
+//                                            Toast.makeText(CreateAccountActivity.this,
+//                                                    "Verification email sent." + " " + user.getEmail(),
+//                                                    Toast.LENGTH_SHORT).show();
+//                                        } else {
+//                                            Toast.makeText(CreateAccountActivity.this,
+//                                                    "Failed to send email.", Toast.LENGTH_SHORT).show();
+//                                        }
+//                                    }
+//                                });
+                    }
                 } else {
                     // User is signed out
                 }
@@ -85,21 +111,23 @@ public class CreateAccountActivity extends AppCompatActivity {
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()){
+                                Log.d("AccountCreateTAG", "Registered!");
+                                Toast.makeText(CreateAccountActivity.this,
+                                        "Account created!", Toast.LENGTH_SHORT).show();
+                            }
+
                             // If creating the account fails, show a message
                             if (!task.isSuccessful()) {
+                                FirebaseException e = (FirebaseException)task.getException();
+                                Log.e("AccountCreateTAG", "Failed Registration", e);
                                 Toast.makeText(CreateAccountActivity.this,
                                         "Account creation failed!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-        }
 
-        final FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null){
-            String userName = mUsernameField.getText().toString();
-            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(userName).build();
-            user.updateProfile(profileUpdates);
+            Log.d("OtherTAG", "Got past user creation");
         }
     }
 
@@ -171,15 +199,8 @@ public class CreateAccountActivity extends AppCompatActivity {
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
         registerAccount(email, password);
-        sendVerificationEmail();
 
-        // wait for a while so the account can be registered
-        // and the email sent
-        try{
-            Thread.sleep(500);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        //sendVerificationEmail();
 
         // go to the Login activity
 //        Intent intent = new Intent(this,LoginActivity.class);
