@@ -22,16 +22,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private BookchangeAccount account;
+    private BookchangeAccount account; // we don't need this after integration with firebase
     private ArrayList<Fragment> frags;
     private final int HOME_INDEX = 0;
     private final int SUB_INDEX = 1;
     private final int LISTINGS_INDEX = 2;
+
+    // firebaseDB variables
+    private DatabaseReference mDatabase;
+    private String mUserId;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +60,11 @@ public class MainActivity extends AppCompatActivity
         frags.add(new SubscriptionsFragment());
         frags.add(new YourListings());
 
+        // Initialize mAuth, mUser, and mDatabase
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         account = new BookchangeAccount("chrisloughlin","crlough18@gmail.com");
@@ -58,6 +75,16 @@ public class MainActivity extends AppCompatActivity
             android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frag , fragment);
             fragmentTransaction.commit();
+        }
+
+        // make sure the user is logged in
+        if (mUser == null) {
+            // Not logged in, launch LoginActivity
+            Intent intent = new Intent(this,LoginActivity.class);
+            this.startActivity(intent);
+            finish();
+        } else {
+            mUserId = mUser.getUid(); // get the Uid
         }
     }
 
@@ -122,7 +149,10 @@ public class MainActivity extends AppCompatActivity
 
     public void onCreateListingClicked(View view){
         Intent intent = new Intent(this,CreateListingActivity.class);
-        intent.putExtra("account_name",account.getAccountName());
+        // no longer used
+//        intent.putExtra("account_name",account.getAccountName());
+        // get display name from the mUser
+        intent.putExtra("account_name", mUser.getDisplayName());
         startActivity(intent);
     }
 

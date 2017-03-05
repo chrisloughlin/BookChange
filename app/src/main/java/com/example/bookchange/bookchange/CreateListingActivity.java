@@ -1,5 +1,6 @@
 package com.example.bookchange.bookchange;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -7,18 +8,43 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 /**
  * Created by christopher on 2/27/17.
  */
 
 public class CreateListingActivity extends AppCompatActivity {
-    private String accountName;
+    private String userDisplayName;
+    // firebaseDB variables
+    private DatabaseReference mDatabase;
+    private String mUserId;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_listing_activity);
-        accountName = getIntent().getStringExtra("account_name");
-        ((TextView)findViewById(R.id.accountNameText)).setText(accountName);
+        userDisplayName = getIntent().getStringExtra("account_name");
+        ((TextView)findViewById(R.id.accountNameText)).setText(userDisplayName);
+
+        // Initialize mAuth, mUser, and mDatabase
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // make sure the user is logged in
+        if (mUser == null) {
+            // Not logged in, launch LoginActivity
+            Intent intent = new Intent(this,LoginActivity.class);
+            this.startActivity(intent);
+            finish();
+        } else {
+            mUserId = mUser.getUid(); // get the Uid
+        }
     }
 
     public void onSaveListingClicked(View view){
@@ -41,7 +67,7 @@ public class CreateListingActivity extends AppCompatActivity {
             ((EditText)findViewById(R.id.courseNameEditText)).setError("Required");
         }
         else {
-            BookListing bookListing = new BookListing(accountName, Double.parseDouble(price), bookTitle, courseName);
+            BookListing bookListing = new BookListing(userDisplayName, Double.parseDouble(price), bookTitle, courseName);
             BookListingDataSource dataSource = new BookListingDataSource(this);
             dataSource.open();
             dataSource.insertEntry(bookListing);
