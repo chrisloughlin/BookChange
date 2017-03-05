@@ -74,8 +74,7 @@ public class DisplayListingActivity extends AppCompatActivity {
         // remove the listing from the database under both the course and the user
         mDatabase.child("courses").child(courseName).
                 child("listings").child(listingKey).removeValue();
-        //TODO delete from the user reference
-//        mDatabase.child("")
+        mDatabase.child("users").child(mUserId).child("listings").child(listingKey).removeValue();
         finish();
     }
 }

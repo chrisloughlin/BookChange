@@ -79,7 +79,7 @@ public class CreateListingActivity extends AppCompatActivity {
             bookListing.setId(pushedListingsRef.getKey());
             pushedListingsRef.setValue(bookListing);
             // insert a listing under users/mUserID/listings
-            mDatabase.child("users").child(mUserId).child("listings").push().setValue(bookListing);
+            mDatabase.child("users").child(mUserId).child("listings").child(pushedListingsRef.getKey()).setValue(bookListing);
             finish();
         }
 

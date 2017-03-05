@@ -99,14 +99,12 @@ public class YourListings extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent;
                 intent = new Intent(getActivity(), DisplayListingActivity.class);
-                String entryId = listings.get(position).getId();
-                intent.putExtra(ENTRY_KEY, entryId);
+//                String entryId = listings.get(position).getId();
+//                intent.putExtra(ENTRY_KEY, entryId);
                 getActivity().startActivity(intent);
             }
         });
 
         return mView;
     }
-
-    //TODO make the listings update as soon as one is created
 }
