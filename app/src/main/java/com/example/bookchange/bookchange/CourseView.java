@@ -55,8 +55,8 @@ public class CourseView extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent;
                 intent = new Intent(getActivity(), DisplayListingActivity.class);
-                long entryId = listings.get(position).getId();
-                intent.putExtra(ENTRY_KEY, entryId);
+//                long entryId = listings.get(position).getId();
+//                intent.putExtra(ENTRY_KEY, entryId);
                 getActivity().startActivity(intent);
             }
         });
