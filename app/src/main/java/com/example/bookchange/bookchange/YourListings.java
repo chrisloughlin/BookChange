@@ -26,12 +26,14 @@ import java.util.ArrayList;
 
 public class YourListings extends Fragment {
     private final String ENTRY_KEY = "ENTRY_ID";
+    private final String COURSE_KEY = "COURSE_NAME";
+
     // firebaseDB variables
     private DatabaseReference mDatabase;
     private String mUserId;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
-    private ArrayList<BookListing> listings;
+    private ArrayList<BookListing> listings = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -61,9 +63,8 @@ public class YourListings extends Fragment {
 
         // set up the listView
         ListView listView = (ListView) mView.findViewById(R.id.your_postings_list);
-        BookListingDataSource dataSource = new BookListingDataSource(getActivity());
-        dataSource.open();
-        //TODO write code to create an equivalent array list from the firebaseDB
+//        BookListingDataSource dataSource = new BookListingDataSource(getActivity());
+//        dataSource.open();
         mDatabase.child("users").child(mUserId).child("listings").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -91,7 +92,7 @@ public class YourListings extends Fragment {
             }
         });
 //        final ArrayList<BookListing> listings = dataSource.fetchEntriesByPosterUsername(account.getAccountName());
-        dataSource.close();
+//        dataSource.close();
         BookListingAdapter adapter = new BookListingAdapter(getActivity(), listings);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -99,8 +100,10 @@ public class YourListings extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent;
                 intent = new Intent(getActivity(), DisplayListingActivity.class);
-//                String entryId = listings.get(position).getId();
-//                intent.putExtra(ENTRY_KEY, entryId);
+                String entryId = listings.get(position).getId();
+                String courseName = listings.get(position).getClassName();
+                intent.putExtra(ENTRY_KEY, entryId);
+                intent.putExtra(COURSE_KEY, courseName);
                 getActivity().startActivity(intent);
             }
         });
