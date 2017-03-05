@@ -10,6 +10,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 /**
@@ -18,10 +26,29 @@ import java.util.ArrayList;
 
 public class YourListings extends Fragment {
     private final String ENTRY_KEY = "ENTRY_ID";
+    // firebaseDB variables
+    private DatabaseReference mDatabase;
+    private String mUserId;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
+    private ArrayList<BookListing> listings;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        // Initialize mAuth, mUser, and mDatabase
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // make sure the user is logged in
+        if (mUser == null) {
+            // Not logged in, launch LoginActivity
+            Intent intent = new Intent(getActivity(),LoginActivity.class);
+            this.startActivity(intent);
+        } else {
+            mUserId = mUser.getUid(); // get the Uid
+        }
     }
 
     @Override
@@ -36,7 +63,34 @@ public class YourListings extends Fragment {
         ListView listView = (ListView) mView.findViewById(R.id.your_postings_list);
         BookListingDataSource dataSource = new BookListingDataSource(getActivity());
         dataSource.open();
-        final ArrayList<BookListing> listings = dataSource.fetchEntriesByPosterUsername(account.getAccountName());
+        //TODO write code to create an equivalent array list from the firebaseDB
+        mDatabase.child("users").child(mUserId).child("listings").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                listings.add(dataSnapshot.getValue(BookListing.class));
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                listings.remove(dataSnapshot.getValue(BookListing.class));
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+//        final ArrayList<BookListing> listings = dataSource.fetchEntriesByPosterUsername(account.getAccountName());
         dataSource.close();
         BookListingAdapter adapter = new BookListingAdapter(getActivity(), listings);
         listView.setAdapter(adapter);
@@ -45,7 +99,7 @@ public class YourListings extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent;
                 intent = new Intent(getActivity(), DisplayListingActivity.class);
-                long entryId = listings.get(position).getId();
+                String entryId = listings.get(position).getId();
                 intent.putExtra(ENTRY_KEY, entryId);
                 getActivity().startActivity(intent);
             }

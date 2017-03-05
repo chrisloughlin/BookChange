@@ -72,6 +72,14 @@ public class CreateListingActivity extends AppCompatActivity {
             dataSource.open();
             dataSource.insertEntry(bookListing);
             dataSource.close();
+
+            // insert a new listing in the firebaseDB under courses/coursename/listings
+            DatabaseReference pushedListingsRef = mDatabase.child("courses").child(courseName).
+                    child("listings").push();
+            bookListing.setId(pushedListingsRef.getKey());
+            pushedListingsRef.setValue(bookListing);
+            // insert a listing under users/mUserID/listings
+            mDatabase.child("users").child(mUserId).child("listings").push().setValue(bookListing);
             finish();
         }
 
