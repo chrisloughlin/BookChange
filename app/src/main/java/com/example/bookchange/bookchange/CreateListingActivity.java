@@ -28,14 +28,17 @@ public class CreateListingActivity extends AppCompatActivity {
         if (bookTitle.equals("")){
             Toast toast = Toast.makeText(this,"Add Book Title",Toast.LENGTH_SHORT);
             toast.show();
+            ((EditText)findViewById(R.id.bookTitleEditText)).setError("Required");
         }
         else  if (price.equals("")){
             Toast toast = Toast.makeText(this,"Add Price",Toast.LENGTH_SHORT);
             toast.show();
+            ((EditText)findViewById(R.id.priceEditText)).setError("Required");
         }
         else if (courseName.equals("")){
            Toast toast = Toast.makeText(this,"Add Course Name",Toast.LENGTH_SHORT);
             toast.show();
+            ((EditText)findViewById(R.id.courseNameEditText)).setError("Required");
         }
         else {
             BookListing bookListing = new BookListing(accountName, Double.parseDouble(price), bookTitle, courseName);

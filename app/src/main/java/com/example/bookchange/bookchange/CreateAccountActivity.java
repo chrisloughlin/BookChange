@@ -1,5 +1,6 @@
 package com.example.bookchange.bookchange;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -58,26 +59,18 @@ public class CreateAccountActivity extends AppCompatActivity {
                     if (user != null){
                         Log.d("OtherTAG", "Got into the if statement");
                         String userName = mUsernameField.getText().toString();
+                        // set the user's display name
                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                 .setDisplayName(userName).build();
                         user.updateProfile(profileUpdates);
 
+                        // send a verification email to the user
                         Log.d("EmailTAG", "got into the if statement");
                         user.sendEmailVerification();
-//                                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<Void> task) {
-//                                        Log.d("EmailTAG", "task got completed");
-//                                        if (task.isSuccessful()) {
-//                                            Toast.makeText(CreateAccountActivity.this,
-//                                                    "Verification email sent." + " " + user.getEmail(),
-//                                                    Toast.LENGTH_SHORT).show();
-//                                        } else {
-//                                            Toast.makeText(CreateAccountActivity.this,
-//                                                    "Failed to send email.", Toast.LENGTH_SHORT).show();
-//                                        }
-//                                    }
-//                                });
+                        Toast.makeText(CreateAccountActivity.this,
+                                "Verification email sent to" + " " + user.getEmail(),
+                                Toast.LENGTH_SHORT).show();
+
                     }
                 } else {
                     // User is signed out
@@ -121,8 +114,13 @@ public class CreateAccountActivity extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 FirebaseException e = (FirebaseException)task.getException();
                                 Log.e("AccountCreateTAG", "Failed Registration", e);
-                                Toast.makeText(CreateAccountActivity.this,
-                                        "Account creation failed!", Toast.LENGTH_SHORT).show();
+                                AlertDialog.Builder errorBuilder = new AlertDialog.Builder
+                                        (CreateAccountActivity.this);
+                                errorBuilder.setMessage(e.getMessage())
+                                        .setTitle("Registration Error!")
+                                        .setPositiveButton(android.R.string.ok, null);
+                                AlertDialog dialog = errorBuilder.create();
+                                dialog.show();
                             }
                         }
                     });
@@ -131,28 +129,29 @@ public class CreateAccountActivity extends AppCompatActivity {
         }
     }
 
-    private void sendVerificationEmail(){
-        Log.d("EmailTAG", "got into the sendVerificationEmail function");
-        final FirebaseUser user = mAuth.getCurrentUser();
-        if(user != null) {
-            Log.d("EmailTAG", "got into the if statement");
-            user.sendEmailVerification()
-                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Log.d("EmailTAG", "task got completed");
-                            if (task.isSuccessful()) {
-                                Toast.makeText(CreateAccountActivity.this,
-                                        "Verification email sent to" + " " + user.getEmail(),
-                                        Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(CreateAccountActivity.this,
-                                        "Failed to send email.", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-        }
-    }
+    // no longer used, leaving in for now in case we change it back
+//    private void sendVerificationEmail(){
+//        Log.d("EmailTAG", "got into the sendVerificationEmail function");
+//        final FirebaseUser user = mAuth.getCurrentUser();
+//        if(user != null) {
+//            Log.d("EmailTAG", "got into the if statement");
+//            user.sendEmailVerification()
+//                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Void> task) {
+//                            Log.d("EmailTAG", "task got completed");
+//                            if (task.isSuccessful()) {
+//                                Toast.makeText(CreateAccountActivity.this,
+//                                        "Verification email sent to" + " " + user.getEmail(),
+//                                        Toast.LENGTH_SHORT).show();
+//                            } else {
+//                                Toast.makeText(CreateAccountActivity.this,
+//                                        "Failed to send email.", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    });
+//        }
+//    }
 
     // method to validate input
     public boolean validateInput() {
@@ -199,8 +198,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
         registerAccount(email, password);
-
-        //sendVerificationEmail();
 
         // go to the Login activity
 //        Intent intent = new Intent(this,LoginActivity.class);
