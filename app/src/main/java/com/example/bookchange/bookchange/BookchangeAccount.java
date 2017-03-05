@@ -28,6 +28,7 @@ public class BookchangeAccount {
             subscriptions.remove(subscription);
         }
     }
+
     public String getAccountName(){return accountName;}
 
     public String getEmailAddress() {

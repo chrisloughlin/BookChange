@@ -41,7 +41,6 @@ public class SubscriptionsFragment extends PreferenceFragment implements SharedP
         }
     }
 
-
     public void onSharedPreferenceChanged(SharedPreferences preferences, String key){
         Log.d("Shared Pref", " change noted");
         CheckBoxPreference  checkBoxPreference = (CheckBoxPreference) findPreference(key);
