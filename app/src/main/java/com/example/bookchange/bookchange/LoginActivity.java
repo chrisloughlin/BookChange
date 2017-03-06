@@ -97,8 +97,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d("LoginTAG", "signInWithEmail:onComplete:" + task.isSuccessful());
@@ -106,8 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                         // If sign in fails, display a message to the user
                         if (!task.isSuccessful()) {
                             Log.w("LoginTag", "signInWithEmail:failed", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

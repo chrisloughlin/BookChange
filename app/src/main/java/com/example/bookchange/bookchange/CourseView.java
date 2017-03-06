@@ -13,8 +13,10 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -54,20 +56,31 @@ public class CourseView extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup paramsGroup, Bundle savedInstanceState){
 
         View mView = inflater.inflate(R.layout.course_view_fragment, paramsGroup, false);
-        subBtn = (Button) mView.findViewById(R.id.subBtn);
-        subBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDatabase.child("subscriptions").push();
-                mDatabase.child("subscriptions").setValue(courseName);
-            }
-        });
 
         // get the selected course
         courseName = getArguments().getString(COURSE_KEY);
         // Set the text for the title
         TextView courseTitle = (TextView) mView.findViewById(R.id.title_course);
         courseTitle.setText(courseName);
+
+        subBtn = (Button) mView.findViewById(R.id.subBtn);
+        subBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                DatabaseReference pushedListingsRef = mDatabase.child("courses").child(courseName).
+//                        child("listings").push();
+//                bookListing.setId(pushedListingsRef.getKey());
+//                pushedListingsRef.setVaklue(bookListing);
+//                // insert a listing under users/mUserID/listings
+//                mDatabase.child("users").child(mUserId).child("listings").child(pushedListingsRef.getKey()).setValue(bookListing);
+
+//                Subscriptions subscription = new Subscriptions(userId);
+//                subscription.addToClasses(courseName);
+//                mDatabase.child(userId).setValue(subscription);
+                mDatabase.child("subscriptions").setValue(courseName);
+            }
+        });
 
         // set up the listView
         ListView listView = (ListView) mView.findViewById(R.id.course_listings);
