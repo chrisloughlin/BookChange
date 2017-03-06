@@ -80,8 +80,7 @@ public class CourseView extends Fragment {
         listings.clear();
         final BookListingAdapter adapter = new BookListingAdapter(getActivity(), listings);
 
-        mDatabase.child("courses").child(courseName).
-                child("listings").addChildEventListener(new ChildEventListener() {
+        mDatabase.child("courses").child(courseName).child("listings").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Log.d("ListingsTAG", "added a listing to the arrayList");
@@ -149,7 +148,7 @@ public class CourseView extends Fragment {
                 DatabaseReference subRef = mDatabase.child("users").child(userId).child("subscriptions").push();
                 Subscription subscription = new Subscription(subRef.getKey());
                 subscription.addSubscription(courseName);
-                mDatabase.child("subscriptions").child(subRef.getKey()).setValue(subscription);
+                mDatabase.child("users").child(userId).child("subscriptions").child(subRef.getKey()).setValue(subscription);
             }
         });
 

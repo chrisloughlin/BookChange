@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity
     public void onAddSubscriptionClicked(View view){
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        SubscriptionsFragment fragment = new SubscriptionsFragment();
+        CourseSelect fragment = new CourseSelect();
         fragmentTransaction.replace(R.id.frag, fragment);
         fragmentTransaction.commit();
     }
