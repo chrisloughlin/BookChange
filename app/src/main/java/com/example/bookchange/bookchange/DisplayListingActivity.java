@@ -47,7 +47,7 @@ public class DisplayListingActivity extends AppCompatActivity {
         // Initialize mAuth, mUser, and mDatabase
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
-
+        String email;
         // get keys and course names so we can find the listing in the database
 //        listingKey = entry.getId();
 
@@ -82,6 +82,8 @@ public class DisplayListingActivity extends AppCompatActivity {
                                 Button delete = (Button) findViewById(R.id.delete_button);
                                 delete.setVisibility(View.GONE);
                             }
+                            TextView emailTextView = (TextView) findViewById(R.id.emailTextView);
+                            emailTextView.setText(entry.getEmail());
                         }
                     }
 
@@ -104,11 +106,11 @@ public class DisplayListingActivity extends AppCompatActivity {
     }
 
     public void onContactClicked(View view){
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        /* Create the Intent */
+        TextView emailTextView = (TextView) findViewById(R.id.emailTextView);
+        String posterEmail = emailTextView.getText().toString();
         final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
         intent.setType("plain/text");
-        intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"crlough18@gmail.com"});
+        intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{posterEmail});
         intent.putExtra(android.content.Intent.EXTRA_SUBJECT, entry.getBookTitle() +" Book Purchase");
         intent.putExtra(android.content.Intent.EXTRA_TEXT, "Hello "+entry.getPosterUsername() +", \n \n I'd like to talk to you about buying " +
                 entry.getBookTitle()+" for " +entry.getClassName()+ ". Please respond to this email if you are interested in selling the book." +

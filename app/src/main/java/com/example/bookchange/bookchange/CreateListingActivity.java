@@ -72,7 +72,7 @@ public class CreateListingActivity extends AppCompatActivity {
             ((EditText)findViewById(R.id.courseNameEditText)).setError("Required");
         }
         else {
-            BookListing bookListing = new BookListing(userDisplayName, Double.parseDouble(price), bookTitle, courseName);
+            BookListing bookListing = new BookListing(userDisplayName, Double.parseDouble(price), bookTitle, courseName,mUser.getEmail());
             /*BookListingDataSource dataSource = new BookListingDataSource(this);
             dataSource.open();
             dataSource.insertEntry(bookListing);

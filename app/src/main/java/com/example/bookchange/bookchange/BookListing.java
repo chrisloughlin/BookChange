@@ -14,16 +14,17 @@ public class BookListing {
     private double mPrice;
     private String mBookTitle;
     private String mClassName;
-
+    private String mEmail;
 
     /*
 
      */
-    public BookListing(String posterUsername, double price, String bookTitle, String className){
+    public BookListing(String posterUsername, double price, String bookTitle, String className, String email){
         mPosterUsername = posterUsername;
         mPrice = price;
         mBookTitle = bookTitle;
         mClassName = className;
+        mEmail = email;
     }
 
     /*
@@ -35,6 +36,7 @@ public class BookListing {
         mPrice = 3.50;
         mBookTitle = "book";
         mClassName = "Course";
+        mEmail= "email@email.com";
     }
 
     public void setId(String id){mId = id;}
@@ -48,4 +50,5 @@ public class BookListing {
     public double getPrice(){return mPrice;}
     public String getBookTitle(){return mBookTitle;}
     public String getClassName(){return mClassName;}
+    public String getEmail(){return mEmail;}
 }
