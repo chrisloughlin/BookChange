@@ -3,6 +3,7 @@ package com.example.bookchange.bookchange;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -79,6 +80,7 @@ public class CreateListingActivity extends AppCompatActivity {
             bookListing.setId(pushedListingsRef.getKey());
             pushedListingsRef.setValue(bookListing);
             // insert a listing under users/mUserID/listings
+            Log.d("ListingTAG", "added a listing to the user");
             mDatabase.child("users").child(mUserId).child("listings").child(pushedListingsRef.getKey()).setValue(bookListing);
             finish();
         }
