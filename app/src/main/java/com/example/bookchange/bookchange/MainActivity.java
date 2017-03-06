@@ -140,12 +140,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void onAddSubscriptionClicked(View view){
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        CourseSelect fragment = new CourseSelect();
-        fragmentTransaction.replace(R.id.frag, fragment);
-        fragmentTransaction.commit();
+    public void onAddSubscriptionClicked(View view) {
+        DialogFragment newFrag = new DepartmentsFrag();
+        newFrag.show(getSupportFragmentManager(), "departmentsDialogFragment");
     }
 
     public void onCreateListingClicked(View view){
