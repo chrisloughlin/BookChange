@@ -32,7 +32,6 @@ public class HomeFragment extends Fragment{
 
     private BookListingDataSource dataSource;
     private ListView listView;
-    private BookListingAdapter adapter;
 
     private DatabaseReference mDatabase;
     private String userId;
@@ -57,26 +56,24 @@ public class HomeFragment extends Fragment{
         } else {
             userId = mUser.getUid(); // get the Uid
         }
-//        dataSource = new BookListingDataSource(getActivity());
-//        dataSource.open();
-//        MainActivity activity = (MainActivity) getActivity();
-//        BookchangeAccount account = activity.getAccount();
-//        subscriptions = account.getSubscriptions();
-//        listings = dataSource.fetchSubscriptions(subscriptions);
-//        dataSource.close();
-        listings.clear();
+
+        final BookListingAdapter adapter = new BookListingAdapter(getActivity(), listings);
+
         mDatabase.child("users").child(userId).child("subscriptions")
                 .addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                listings.clear();
                 mDatabase.child("courses").child(dataSnapshot.getValue(Subscription.class)
                         .getClasses()).child("listings")
                         .addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Log.d("ListingsTAG", "added a listing to the arrayList");
+                        Log.d("HomeTAG", "added a listing to the arrayList");
                         BookListing newListing = dataSnapshot.getValue(BookListing.class);
                         listings.add(newListing);
+                        Log.d("HomeTAG", "Listings size: "+ listings.size());
+                        adapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -86,6 +83,7 @@ public class HomeFragment extends Fragment{
                     @Override
                     public void onChildRemoved(DataSnapshot dataSnapshot) {
                         listings.remove(dataSnapshot.getValue(BookListing.class));
+                        adapter.notifyDataSetChanged();
                     }
 
                     @Override
@@ -113,8 +111,10 @@ public class HomeFragment extends Fragment{
             public void onCancelled(DatabaseError databaseError) {}
         });
 
+        Log.d("HomeTAG", "Listings size: "+ listings.size());
 
         if(listings.size()>0) {
+            Log.d("HomeTAG", "go inside the if statement, listings was populated");
             Button subButton = (Button) view.findViewById(R.id.add_subs);
             TextView textView = (TextView) view.findViewById(R.id.home_text_1);
             TextView textView2 = (TextView) view.findViewById(R.id.home_text_2);
@@ -122,7 +122,6 @@ public class HomeFragment extends Fragment{
             textView.setVisibility(View.GONE);
             textView2.setVisibility(View.GONE);
             listView = (ListView) view.findViewById(R.id.home_list_view);
-            adapter = new BookListingAdapter(getActivity(), listings);
             listView.setAdapter(adapter);
         }
         else {
