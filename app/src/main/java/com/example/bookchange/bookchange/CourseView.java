@@ -28,8 +28,9 @@ This allows the user to display the listings that are currently posted for the c
 
 public class CourseView extends Fragment {
     private String courseName;
-    private final String COURSE_KEY = "course_name";
+    private final String COURSE_KEY2 = "course_name";
     private final String ENTRY_KEY = "ENTRY_ID";
+    private final String COURSE_KEY = "COURSE_NAME";
     Button subBtn;
     private DatabaseReference mDatabase;
     private String userId;
@@ -60,7 +61,7 @@ public class CourseView extends Fragment {
         View mView = inflater.inflate(R.layout.course_view_fragment, paramsGroup, false);
 
         // get the selected course
-        courseName = getArguments().getString(COURSE_KEY);
+        courseName = getArguments().getString(COURSE_KEY2);
         // Set the text for the title
         TextView courseTitle = (TextView) mView.findViewById(R.id.title_course);
         courseTitle.setText(courseName);

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -91,6 +92,10 @@ public class DisplayListingActivity extends AppCompatActivity {
             finish();
         } else {
             mUserId = mUser.getUid(); // get the Uid
+            if(!mUser.getDisplayName().equals(entry.getPosterUsername())){
+                Button delete = (Button) findViewById(R.id.delete_button);
+                delete.setVisibility(View.GONE);
+            }
         }
     }
 
