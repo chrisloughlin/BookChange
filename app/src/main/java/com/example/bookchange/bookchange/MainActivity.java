@@ -154,9 +154,9 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    public void onUnsubscribeClicked(View view){
+//    public void onUnsubscribeClicked(View view){
 //        mDatabase.child("users").child(mUserId).child("subscriptions").;
-    }
+//    }
 
     public void addSubToAccount(String className){
         account.addSubscription(className);
@@ -165,7 +165,6 @@ public class MainActivity extends AppCompatActivity
     public void removeSubFromAccount(String className){
         account.removeSubscription(className);
     }
-
 
     public static class DepartmentsFrag extends DialogFragment {
 
