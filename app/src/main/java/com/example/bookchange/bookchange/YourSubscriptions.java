@@ -31,7 +31,7 @@ public class YourSubscriptions extends Fragment {
     private String userId;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
-    private ArrayList<Subscription> subscriptions = new ArrayList<>();
+    private ArrayList<Subscription> subscriptions;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -59,11 +59,14 @@ public class YourSubscriptions extends Fragment {
 //        MainActivity activity = (MainActivity) getActivity();
 //        BookchangeAccount account = activity.getAccount();
 
+        subscriptions = new ArrayList<>();
+
         // set up the listView
         ListView listView = (ListView) mView.findViewById(R.id.yoursubslist);
 //        BookListingDataSource dataSource = new BookListingDataSource(getActivity());
 //        dataSource.open();
 //        child("users").child(userId).
+        subscriptions.clear();
         mDatabase.child("users").child(userId).child("subscriptions").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
