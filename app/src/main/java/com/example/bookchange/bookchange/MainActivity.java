@@ -39,10 +39,10 @@ public class MainActivity extends AppCompatActivity
     private final int LISTINGS_INDEX = 2;
 
     // firebaseDB variables
-    private DatabaseReference mDatabase;
     private String mUserId;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity
         // Initialize mAuth, mUser, and mDatabase
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
+        mUserId = mUser.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -155,6 +156,10 @@ public class MainActivity extends AppCompatActivity
         // get display name from the mUser
         intent.putExtra("account_name", mUser.getDisplayName());
         startActivity(intent);
+    }
+
+    public void onUnsubscribeClicked(View view){
+        mDatabase.child("users").child()
     }
 
     public void addSubToAccount(String className){
