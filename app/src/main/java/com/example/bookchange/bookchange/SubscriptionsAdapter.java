@@ -26,8 +26,9 @@ public class SubscriptionsAdapter extends ArrayAdapter {
         TextView textView = (TextView) view.findViewById(android.R.id.text1);
         Subscription entry = (Subscription) getItem(position);
 
-        ArrayList classes = entry.getClasses();
-        textView.setText("test");
+//        ArrayList classes = entry.getClasses();
+
+        textView.setText(entry.getClasses());
 
         return view;
     }
