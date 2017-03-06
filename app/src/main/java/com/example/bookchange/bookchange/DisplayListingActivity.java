@@ -43,6 +43,23 @@ public class DisplayListingActivity extends AppCompatActivity {
         courseName = getIntent().getStringExtra(COURSE_KEY);
         Log.d("DisplayTAG", entryID);
         Log.d("DisplayTAG", courseName);
+
+        // Initialize mAuth, mUser, and mDatabase
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+
+        // get keys and course names so we can find the listing in the database
+//        listingKey = entry.getId();
+
+        // make sure the user is logged in
+        if (mUser == null) {
+            // Not logged in, launch LoginActivity
+            Intent intent = new Intent(this,LoginActivity.class);
+            this.startActivity(intent);
+            finish();
+        } else {
+            mUserId = mUser.getUid(); // get the Uid
+        }
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("courses").child(courseName).
                 child("listings").child(entryID).addValueEventListener(
@@ -59,6 +76,12 @@ public class DisplayListingActivity extends AppCompatActivity {
                             courseNameTextView.setText(entry.getClassName());
                             TextView accountNameTextView = (TextView) findViewById(R.id.accountNameTextView);
                             accountNameTextView.setText(entry.getPosterUsername());
+                            Log.d("User ID: ", mUser.getDisplayName());
+                            Log.d("Entry Poster:", entry.getPosterUsername());
+                            if(!mUser.getDisplayName().equals(entry.getPosterUsername())){
+                                Button delete = (Button) findViewById(R.id.delete_button);
+                                delete.setVisibility(View.GONE);
+                            }
                         }
                     }
 
@@ -77,26 +100,7 @@ public class DisplayListingActivity extends AppCompatActivity {
 //        TextView accountNameTextView = (TextView) findViewById(R.id.accountNameTextView);
 //        accountNameTextView.setText(entry.getPosterUsername());
 
-        // Initialize mAuth, mUser, and mDatabase
-        mAuth = FirebaseAuth.getInstance();
-        mUser = mAuth.getCurrentUser();
 
-        // get keys and course names so we can find the listing in the database
-//        listingKey = entry.getId();
-
-        // make sure the user is logged in
-        if (mUser == null) {
-            // Not logged in, launch LoginActivity
-            Intent intent = new Intent(this,LoginActivity.class);
-            this.startActivity(intent);
-            finish();
-        } else {
-            mUserId = mUser.getUid(); // get the Uid
-            if(!mUser.getDisplayName().equals(entry.getPosterUsername())){
-                Button delete = (Button) findViewById(R.id.delete_button);
-                delete.setVisibility(View.GONE);
-            }
-        }
     }
 
     public void onContactClicked(View view){

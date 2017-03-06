@@ -40,8 +40,7 @@ public class CourseView extends Fragment {
     private String userId;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
-    private ArrayList<BookListing> listings;
-
+    private ArrayList<BookListing> listings = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -59,14 +58,12 @@ public class CourseView extends Fragment {
             userId = mUser.getUid(); // get the Uid
         }
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        listings = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup paramsGroup, Bundle savedInstanceState){
 
         View mView = inflater.inflate(R.layout.course_view_fragment, paramsGroup, false);
-        ListView listView = (ListView) mView.findViewById(R.id.yoursubslist);
 
         // get the selected course
         courseName = getArguments().getString(COURSE_KEY2);
@@ -74,9 +71,17 @@ public class CourseView extends Fragment {
         TextView courseTitle = (TextView) mView.findViewById(R.id.title_course);
         courseTitle.setText(courseName);
 
+        // set up the listView
+        ListView listView = (ListView) mView.findViewById(R.id.course_listings);
+//        BookListingDataSource dataSource = new BookListingDataSource(getActivity());
+//        dataSource.open();
+//        final ArrayList<BookListing> listings = dataSource.fetchEntriesByClass(courseName);
+//        dataSource.close();
+        listings.clear();
         final BookListingAdapter adapter = new BookListingAdapter(getActivity(), listings);
 
-        mDatabase.child("users").child(userId).child("listings").addChildEventListener(new ChildEventListener() {
+        mDatabase.child("courses").child(courseName).
+                child("listings").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Log.d("ListingsTAG", "added a listing to the arrayList");
@@ -104,19 +109,14 @@ public class CourseView extends Fragment {
             }
         });
 
-        // set up the listView
-//        ListView listView = (ListView) mView.findViewById(R.id.course_listings);
-//        BookListingDataSource dataSource = new BookListingDataSource(getActivity());
-//        dataSource.open();
-//        final ArrayList<BookListing> listings = dataSource.fetchEntriesByClass(courseName);
-//        dataSource.close();
-//        BookListingAdapter adapter = new BookListingAdapter(getActivity(), listings);
 
         listView.setAdapter(adapter);
         if(listings.size()>0) {
             TextView noListings = (TextView) mView.findViewById(R.id.no_listings_text);
             noListings.setVisibility(View.GONE);
         }
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -149,7 +149,7 @@ public class CourseView extends Fragment {
                 DatabaseReference subRef = mDatabase.child("users").child(userId).child("subscriptions").push();
                 Subscription subscription = new Subscription(subRef.getKey());
                 subscription.addSubscription(courseName);
-                mDatabase.child("users").child(userId).child("subscriptions").child(subRef.getKey()).setValue(subscription);
+                mDatabase.child("subscriptions").child(subRef.getKey()).setValue(subscription);
             }
         });
 
