@@ -3,6 +3,7 @@ package com.example.bookchange.bookchange;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,6 +16,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Created by christopher on 2/27/17.
+ */
+
+/*
+Allows the user to post a listing to the database
  */
 
 public class CreateListingActivity extends AppCompatActivity {
@@ -68,10 +73,10 @@ public class CreateListingActivity extends AppCompatActivity {
         }
         else {
             BookListing bookListing = new BookListing(userDisplayName, Double.parseDouble(price), bookTitle, courseName);
-            BookListingDataSource dataSource = new BookListingDataSource(this);
+            /*BookListingDataSource dataSource = new BookListingDataSource(this);
             dataSource.open();
             dataSource.insertEntry(bookListing);
-            dataSource.close();
+            dataSource.close();*/
 
             // insert a new listing in the firebaseDB under courses/coursename/listings
             DatabaseReference pushedListingsRef = mDatabase.child("courses").child(courseName).
@@ -79,6 +84,7 @@ public class CreateListingActivity extends AppCompatActivity {
             bookListing.setId(pushedListingsRef.getKey());
             pushedListingsRef.setValue(bookListing);
             // insert a listing under users/mUserID/listings
+            Log.d("ListingTAG", "added a listing to the user");
             mDatabase.child("users").child(mUserId).child("listings").child(pushedListingsRef.getKey()).setValue(bookListing);
             finish();
         }

@@ -4,6 +4,10 @@ package com.example.bookchange.bookchange;
  * Created by christopher on 2/26/17.
  */
 
+/*
+This is where the actual post information is stored for each post. I.E. Price, Title, Class etc.
+ */
+
 public class BookListing {
     private String mId;
     private String mPosterUsername;
@@ -11,6 +15,10 @@ public class BookListing {
     private String mBookTitle;
     private String mClassName;
 
+
+    /*
+
+     */
     public BookListing(String posterUsername, double price, String bookTitle, String className){
         mPosterUsername = posterUsername;
         mPrice = price;
@@ -18,6 +26,9 @@ public class BookListing {
         mClassName = className;
     }
 
+    /*
+    Default constructor for debugging only
+     */
     public BookListing(){
         mId = "";
         mPosterUsername = "Phill";

@@ -6,6 +6,9 @@ import java.util.ArrayList;
  * Created by christopher on 2/26/17.
  */
 
+/*
+This class is the bas
+ */
 public class BookchangeAccount {
     private String accountName;
     private String emailAddress;

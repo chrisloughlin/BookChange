@@ -22,6 +22,10 @@ import java.util.ArrayList;
  * Created by christopher on 2/27/17.
  */
 
+/*
+This allows the user to display the listings that are currently posted for the course
+ */
+
 public class CourseView extends Fragment {
     private String courseName;
     private final String COURSE_KEY = "course_name";
@@ -78,6 +82,10 @@ public class CourseView extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent;
                 intent = new Intent(getActivity(), DisplayListingActivity.class);
+                String entryId = listings.get(position).getId();
+                String courseName = listings.get(position).getClassName();
+                intent.putExtra(ENTRY_KEY, entryId);
+                intent.putExtra(COURSE_KEY, courseName);
 //                long entryId = listings.get(position).getId();
 //                intent.putExtra(ENTRY_KEY, entryId);
                 getActivity().startActivity(intent);

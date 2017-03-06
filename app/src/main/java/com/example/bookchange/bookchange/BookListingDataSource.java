@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.google.firebase.database.DatabaseReference;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,7 +50,7 @@ public class BookListingDataSource {
         Cursor cursor = db.query(BookListingDbHelper.TABLE_NAME_ENTRIES, allColumns,
                 BookListingDbHelper.KEY_ROWID + "=" + rowId , null, null, null, null);
         cursor.moveToFirst();
-        BookListing newEntry = cursorToEntry(cursor , true);
+        BookListing newEntry = cursorToEntry(cursor);
         cursor.close();
         return newEntry;
     }
@@ -107,7 +109,7 @@ public class BookListingDataSource {
                 null, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
-            BookListing entry = cursorToEntry(cursor, false);
+            BookListing entry = cursorToEntry(cursor);
             allEntries.add(entry);
             cursor.moveToNext();
         }
@@ -115,7 +117,7 @@ public class BookListingDataSource {
         return allEntries;
     }
 
-    public BookListing cursorToEntry(Cursor cursor, boolean gpsData){
+    public BookListing cursorToEntry(Cursor cursor){
         String posterUsername = cursor.getString(cursor.getColumnIndex(BookListingDbHelper.KEY_POSTER_USERNAME));
         double price = cursor.getDouble(cursor.getColumnIndex(BookListingDbHelper.KEY_PRICE));
         String bookTitle = cursor.getString(cursor.getColumnIndex(BookListingDbHelper.KEY_BOOK_TITLE));
@@ -125,5 +127,19 @@ public class BookListingDataSource {
         return entry;
     }
 
-    public void clearDb(){ db.delete(BookListingDbHelper.TABLE_NAME_ENTRIES, null , null);}
+    public void syncWithFirebase(DatabaseReference databaseReference){
+        clearDb();
+        //databaseReference.child("courses").getRef().addChildEventListener(new)
+        //databaseReference
+    }
+    public void clearDb(){
+        Cursor cursor = db.query(BookListingDbHelper.TABLE_NAME_ENTRIES, null, null, null, null,
+                null, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            db.delete(BookListingDbHelper.TABLE_NAME_ENTRIES,BookListingDbHelper.KEY_ROWID+"="+cursor.getPosition(), null);
+            cursor.moveToNext();
+        }
+        cursor.close();
+    }
 }

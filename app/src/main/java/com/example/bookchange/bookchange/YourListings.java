@@ -3,6 +3,7 @@ package com.example.bookchange.bookchange;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,16 +60,20 @@ public class YourListings extends Fragment {
         View mView = inflater.inflate(R.layout.your_postings_fragment, paramsGroup, false);
         // get the selected course
         MainActivity activity = (MainActivity) getActivity();
-        BookchangeAccount account = activity.getAccount();
+        //BookchangeAccount account = activity.getAccount();
 
         // set up the listView
         ListView listView = (ListView) mView.findViewById(R.id.your_postings_list);
-//        BookListingDataSource dataSource = new BookListingDataSource(getActivity());
-//        dataSource.open();
+        listings.clear();
+        final BookListingAdapter adapter = new BookListingAdapter(getActivity(), listings);
+
         mDatabase.child("users").child(mUserId).child("listings").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                listings.add(dataSnapshot.getValue(BookListing.class));
+                Log.d("ListingsTAG", "added a listing to the arrayList");
+                BookListing newListing = dataSnapshot.getValue(BookListing.class);
+                listings.add(newListing);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -78,6 +83,7 @@ public class YourListings extends Fragment {
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 listings.remove(dataSnapshot.getValue(BookListing.class));
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -90,7 +96,7 @@ public class YourListings extends Fragment {
         });
 //        final ArrayList<BookListing> listings = dataSource.fetchEntriesByPosterUsername(account.getAccountName());
 //        dataSource.close();
-        BookListingAdapter adapter = new BookListingAdapter(getActivity(), listings);
+//        BookListingAdapter adapter = new BookListingAdapter(getActivity(), listings);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -35,8 +35,7 @@ public class DisplayListingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.display_listing_activity);
-//        BookListingDataSource dataSource = new BookListingDataSource(this);
-//        dataSource.open();
+
         Long rowId = getIntent().getLongExtra(ENTRY_KEY, 0);
         Log.d("DisplayEntry: ", "" + rowId);
         entryID = getIntent().getStringExtra(ENTRY_KEY);
@@ -96,6 +95,18 @@ public class DisplayListingActivity extends AppCompatActivity {
     }
 
     public void onContactClicked(View view){
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        /* Create the Intent */
+        final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+        intent.setType("plain/text");
+        intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"crlough18@gmail.com"});
+        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, entry.getBookTitle() +" Book Purchase");
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, "Hello "+entry.getPosterUsername() +", \n \n I'd like to talk to you about buying " +
+                entry.getBookTitle()+" for " +entry.getClassName()+ ". Please respond to this email if you are interested in selling the book." +
+                "\n \n Thanks, \n"+mUser.getDisplayName());
+
+/* Send it off to the Activity-Chooser */
+        startActivity(Intent.createChooser(intent, "Send mail..."));
         //TODO add the intent to open gmail with the user's email
         finish();
     }
