@@ -52,7 +52,7 @@ public class CourseView extends Fragment {
         } else {
             userId = mUser.getUid(); // get the Uid
         }
-        mDatabase = FirebaseDatabase.getInstance().getReference(userId);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -87,8 +87,6 @@ public class CourseView extends Fragment {
                 String courseName = listings.get(position).getClassName();
                 intent.putExtra(ENTRY_KEY, entryId);
                 intent.putExtra(COURSE_KEY, courseName);
-//                long entryId = listings.get(position).getId();
-//                intent.putExtra(ENTRY_KEY, entryId);
                 getActivity().startActivity(intent);
             }
         });
@@ -106,12 +104,12 @@ public class CourseView extends Fragment {
 //                mDatabase.child("users").child(mUserId).child("listings").child(pushedListingsRef.getKey()).setValue(bookListing);
 
 //                Subscription subscription = new Subscription(userId);
-//                subscription.addToClasses(courseName);
+//                subscription.addSubscription(courseName);
 //                mDatabase.child(userId).setValue(subscription);
 
-                DatabaseReference subRef = mDatabase.child("subscriptions").push();
+                DatabaseReference subRef = mDatabase.child("users").child(userId).child("subscriptions").push();
                 Subscription subscription = new Subscription(subRef.getKey());
-                subscription.addToClasses(courseName);
+                subscription.addSubscription(courseName);
                 mDatabase.child("subscriptions").child(subRef.getKey()).setValue(subscription);
             }
         });

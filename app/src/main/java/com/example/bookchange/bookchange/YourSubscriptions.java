@@ -48,7 +48,7 @@ public class YourSubscriptions extends Fragment {
         } else {
             userId = mUser.getUid(); // get the Uid
         }
-        mDatabase = FirebaseDatabase.getInstance().getReference(userId);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -64,7 +64,7 @@ public class YourSubscriptions extends Fragment {
 //        BookListingDataSource dataSource = new BookListingDataSource(getActivity());
 //        dataSource.open();
 //        child("users").child(userId).
-        mDatabase.child("subscriptions").addChildEventListener(new ChildEventListener() {
+        mDatabase.child("users").child(userId).child("subscriptions").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 subscriptions.add(dataSnapshot.getValue(Subscription.class));
