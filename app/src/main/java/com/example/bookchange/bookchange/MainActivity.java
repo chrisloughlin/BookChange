@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void onUnsubscribeClicked(View view){
-        mDatabase.child("users").child(mUserId).child("subscriptions").;
+//        mDatabase.child("users").child(mUserId).child("subscriptions").;
     }
 
     public void addSubToAccount(String className){
