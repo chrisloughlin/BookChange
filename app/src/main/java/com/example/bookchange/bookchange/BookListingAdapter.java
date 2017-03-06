@@ -12,6 +12,9 @@ import java.util.List;
  * Created by christopher on 2/27/17.
  */
 
+/*
+Adapter used to display booklisting information in a listview
+ */
 public class BookListingAdapter extends ArrayAdapter {
     private static int pref;
     private final String UNIT_KEY = "unit_setting";
@@ -21,6 +24,9 @@ public class BookListingAdapter extends ArrayAdapter {
         pref = 0;
     }
 
+    /*
+    Converts a booklisting into a view that can be used in the listview
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parentViewGroup){
         View view = super.getView(position, convertView, parentViewGroup);

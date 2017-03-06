@@ -17,6 +17,10 @@ import com.google.firebase.database.FirebaseDatabase;
  * Created by christopher on 2/27/17.
  */
 
+/*
+Allows the user to post a listing to the database
+ */
+
 public class CreateListingActivity extends AppCompatActivity {
     private String userDisplayName;
     // firebaseDB variables
@@ -68,10 +72,10 @@ public class CreateListingActivity extends AppCompatActivity {
         }
         else {
             BookListing bookListing = new BookListing(userDisplayName, Double.parseDouble(price), bookTitle, courseName);
-            BookListingDataSource dataSource = new BookListingDataSource(this);
+            /*BookListingDataSource dataSource = new BookListingDataSource(this);
             dataSource.open();
             dataSource.insertEntry(bookListing);
-            dataSource.close();
+            dataSource.close();*/
 
             // insert a new listing in the firebaseDB under courses/coursename/listings
             DatabaseReference pushedListingsRef = mDatabase.child("courses").child(courseName).

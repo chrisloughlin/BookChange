@@ -22,6 +22,10 @@ import java.util.ArrayList;
  * Created by christopher on 2/27/17.
  */
 
+/*
+This allows the user to display the listings that are currently posted for the course
+ */
+
 public class CourseView extends Fragment {
     private String courseName;
     private final String COURSE_KEY = "course_name";

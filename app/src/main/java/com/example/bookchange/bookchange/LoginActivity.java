@@ -19,6 +19,10 @@ import com.google.firebase.auth.FirebaseUser;
  * Created by christopher on 2/26/17.
  */
 
+/*
+This is the main login activity. From here, the user can log in or create an account. An invalid
+login will be denied, and the main menu can only be opened with a valid login
+ */
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -26,6 +30,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mEmailField;
     private EditText mPasswordField;
 
+    /*
+    onCreate sets up the text input and sets up the firebase to log in
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +62,18 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /*
+    Registers the authentication listener
+     */
     @Override
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
     }
 
+    /*
+    Unegisters the authentication listener
+     */
     @Override
     public void onStop() {
         super.onStop();
@@ -69,10 +82,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    // method to validate input
+    // method to validate input for the login info
     public boolean validateInput() {
         boolean isValid = true;
 
+        //ensures the field isnt blank
         String email = mEmailField.getText().toString();
         if (email.equals("")) {
             mEmailField.setError("Required");
@@ -92,6 +106,9 @@ public class LoginActivity extends AppCompatActivity {
         return isValid;
     }
 
+    /*
+    Uses the provided email and password to attempt to log in to the firebase system
+     */
     private void logIn(String email, String password) {
         if (!validateInput()) {
             return;
@@ -113,16 +130,25 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    /*
+    Only called once valid input and login are correct
+     */
     public void startMain(){
         Intent intent = new Intent(this,MainActivity.class);
         this.startActivity(intent);
         finish();
     }
 
+    /*
+    When the login button is clicked, the app attempts to log in to firebase
+     */
     public void onLoginClicked (View button){
         logIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
     }
 
+    /*
+    Launches an activity to create an account
+     */
     public void onCreateAccountClicked (View button){
         Intent intent = new Intent(this,CreateAccountActivity.class);
         this.startActivity(intent);
