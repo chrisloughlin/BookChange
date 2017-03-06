@@ -22,7 +22,9 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 /**
  * Created by christopher on 2/26/17.
  */
-
+/*
+Attempts to create a new firebase account with the user's inputs. Sends an email
+ */
 public class CreateAccountActivity extends AppCompatActivity {
     // email and password edittexts
     private EditText mEmailField;
@@ -33,7 +35,9 @@ public class CreateAccountActivity extends AppCompatActivity {
     // required for Firebase authentication
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
-
+    /*
+    Sets up the text as well as required Firebase Authentication components
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +80,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                     // User is signed out
                 }
             }
-        };
+        };j
     }
 
     @Override

@@ -22,6 +22,10 @@ import java.util.ArrayList;
  * Created by christopher on 2/27/17.
  */
 
+/*
+This allows the user to display the listings that are currently posted for the course
+ */
+
 public class CourseView extends Fragment {
     private String courseName;
     private final String COURSE_KEY = "course_name";
@@ -54,14 +58,6 @@ public class CourseView extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup paramsGroup, Bundle savedInstanceState){
 
         View mView = inflater.inflate(R.layout.course_view_fragment, paramsGroup, false);
-        subBtn = (Button) mView.findViewById(R.id.subBtn);
-        subBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDatabase.child("subscriptions").push();
-                mDatabase.child("subscriptions").setValue(courseName);
-            }
-        });
 
         // get the selected course
         courseName = getArguments().getString(COURSE_KEY);
@@ -89,6 +85,29 @@ public class CourseView extends Fragment {
 //                long entryId = listings.get(position).getId();
 //                intent.putExtra(ENTRY_KEY, entryId);
                 getActivity().startActivity(intent);
+            }
+        });
+
+        subBtn = (Button) mView.findViewById(R.id.subBtn);
+        subBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                DatabaseReference pushedListingsRef = mDatabase.child("courses").child(courseName).
+//                        child("listings").push();
+//                bookListing.setId(pushedListingsRef.getKey());
+//                pushedListingsRef.setVaklue(bookListing);
+//                // insert a listing under users/mUserID/listings
+//                mDatabase.child("users").child(mUserId).child("listings").child(pushedListingsRef.getKey()).setValue(bookListing);
+
+//                Subscription subscription = new Subscription(userId);
+//                subscription.addToClasses(courseName);
+//                mDatabase.child(userId).setValue(subscription);
+
+                DatabaseReference subRef = mDatabase.child("subscriptions").push();
+                Subscription subscription = new Subscription(subRef.getKey());
+                subscription.addToClasses(courseName);
+                mDatabase.child("subscriptions").child(subRef.getKey()).setValue(subscription);
             }
         });
 

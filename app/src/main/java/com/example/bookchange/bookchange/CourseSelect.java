@@ -20,6 +20,10 @@ import java.util.ArrayList;
  * Created by Ted on 2/26/2017.
  */
 
+/*
+This fragment allows the user to select a course from the list of courses.
+ */
+
 public class CourseSelect extends Fragment {
     private int departmentInt;
     private final String COURSE_KEY = "course_name";

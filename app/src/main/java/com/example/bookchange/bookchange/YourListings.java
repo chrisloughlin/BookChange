@@ -60,7 +60,7 @@ public class YourListings extends Fragment {
         View mView = inflater.inflate(R.layout.your_postings_fragment, paramsGroup, false);
         // get the selected course
         MainActivity activity = (MainActivity) getActivity();
-        BookchangeAccount account = activity.getAccount();
+        //BookchangeAccount account = activity.getAccount();
 
         // set up the listView
         ListView listView = (ListView) mView.findViewById(R.id.your_postings_list);
@@ -78,7 +78,6 @@ public class YourListings extends Fragment {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override
@@ -89,12 +88,10 @@ public class YourListings extends Fragment {
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
 //        final ArrayList<BookListing> listings = dataSource.fetchEntriesByPosterUsername(account.getAccountName());
