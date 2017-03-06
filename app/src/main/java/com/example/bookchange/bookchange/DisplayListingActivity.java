@@ -35,8 +35,7 @@ public class DisplayListingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.display_listing_activity);
-//        BookListingDataSource dataSource = new BookListingDataSource(this);
-//        dataSource.open();
+
         Long rowId = getIntent().getLongExtra(ENTRY_KEY, 0);
         Log.d("DisplayEntry: ", "" + rowId);
         entryID = getIntent().getStringExtra(ENTRY_KEY);
