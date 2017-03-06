@@ -31,7 +31,7 @@ public class YourSubscriptions extends Fragment {
     private String userId;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
-    private ArrayList<Subscription> subscriptions;
+    private ArrayList<Subscription> subscriptions = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState){
