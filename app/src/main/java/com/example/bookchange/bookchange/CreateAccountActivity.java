@@ -80,7 +80,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                     // User is signed out
                 }
             }
-        };j
+        };
     }
 
     @Override
