@@ -57,7 +57,8 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         frags = new ArrayList<>();
         frags.add(new HomeFragment());
-        frags.add(new SubscriptionsFragment());
+//        frags.add(new SubscriptionsFragment());
+        frags.add(new YourSubscriptions());
         frags.add(new YourListings());
 
         // Initialize mAuth, mUser, and mDatabase
