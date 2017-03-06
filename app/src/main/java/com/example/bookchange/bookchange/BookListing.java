@@ -44,6 +44,7 @@ public class BookListing {
     public void setPrice(double price){mPrice = price;}
     public void setBookTitle(String bookTitle){mBookTitle = bookTitle;}
     public void setClassName(String className){mClassName = className;}
+    public void setEmail(String email){mEmail = email;}
 
     public String getId(){return mId;}
     public String getPosterUsername(){return mPosterUsername;}
