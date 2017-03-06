@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity
             // launch the subscription fragment (Preferences fragment?)
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            SubscriptionsFragment fragment = (SubscriptionsFragment)frags.get(SUB_INDEX);
+            YourSubscriptions fragment = (YourSubscriptions) frags.get(SUB_INDEX);
             fragmentTransaction.replace(R.id.frag, fragment);
             fragmentTransaction.commit();
         }
