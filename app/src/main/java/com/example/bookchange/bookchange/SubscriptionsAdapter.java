@@ -21,6 +21,11 @@ public class SubscriptionsAdapter extends ArrayAdapter {
         super(context, R.layout.subscriptionrow, R.id.subbed_course, values);
     }
 
+//    @Override
+//    public Subscription getItem(int position){
+//        return view.get(position);
+//    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parentViewGroup){
         View view = super.getView(position, convertView, parentViewGroup);

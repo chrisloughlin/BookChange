@@ -1,7 +1,5 @@
 package com.example.bookchange.bookchange;
 
-import java.util.ArrayList;
-
 /**
  * Created by sachinvadodaria on 3/5/17.
  *
@@ -9,22 +7,22 @@ import java.util.ArrayList;
  */
 
 public class Subscription {
-    private String userID;
+    private String id;
     private String courses;
 
     public Subscription(){
     }
 
     public Subscription(String id){
-        userID = id;
+        this.id = id;
         courses = new String();
     }
 
-    public void setId(String id){ userID = id;}
+    public void setId(String id){ this.id = id;}
 
     public void setClasses(String classes){ courses = classes;}
 
-    public String getId(){return userID;}
+    public String getId(){return id;}
 
     public String getClasses(){return courses;}
 
