@@ -17,13 +17,13 @@ public class SubscriptionsAdapter extends ArrayAdapter {
 
     public SubscriptionsAdapter(Context context, List<Subscription> values){
 //        android.R.layout.simple_list_item_1
-        super(context, R.layout.yoursubsfragment, android.R.id.text1, values);
+        super(context, R.layout.subscriptionrow, R.id.subbed_course, values);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parentViewGroup){
         View view = super.getView(position, convertView, parentViewGroup);
-        TextView textView = (TextView) view.findViewById(android.R.id.text1);
+        TextView textView = (TextView) view.findViewById(R.id.subbed_course);
         Subscription entry = (Subscription) getItem(position);
 
 //        ArrayList classes = entry.getClasses();
