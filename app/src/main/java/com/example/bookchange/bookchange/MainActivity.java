@@ -64,8 +64,17 @@ public class MainActivity extends AppCompatActivity
         // Initialize mAuth, mUser, and mDatabase
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
-        mUserId = mUser.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // make sure the user is logged in
+        if (mUser == null) {
+            // Not logged in, launch LoginActivity
+            Intent intent = new Intent(this,LoginActivity.class);
+            this.startActivity(intent);
+            finish();
+        } else {
+            mUserId = mUser.getUid(); // get the Uid
+        }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -77,16 +86,6 @@ public class MainActivity extends AppCompatActivity
             android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frag , fragment);
             fragmentTransaction.commit();
-        }
-
-        // make sure the user is logged in
-        if (mUser == null) {
-            // Not logged in, launch LoginActivity
-            Intent intent = new Intent(this,LoginActivity.class);
-            this.startActivity(intent);
-            finish();
-        } else {
-            mUserId = mUser.getUid(); // get the Uid
         }
     }
 
