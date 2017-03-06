@@ -1,6 +1,7 @@
 package com.example.bookchange.bookchange;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,7 @@ public class SubscriptionsAdapter extends ArrayAdapter {
         TextView textView = (TextView) view.findViewById(R.id.subbed_course);
         Subscription entry = (Subscription) getItem(position);
 
+        Log.d("set text", "set course");
 //        ArrayList classes = entry.getClasses();
 
         textView.setText(entry.getClasses());
