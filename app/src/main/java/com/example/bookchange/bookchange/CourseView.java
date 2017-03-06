@@ -3,6 +3,7 @@ package com.example.bookchange.bookchange;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,9 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,6 +40,7 @@ public class CourseView extends Fragment {
     private String userId;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
+    private ArrayList<BookListing> listings = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -68,16 +73,50 @@ public class CourseView extends Fragment {
 
         // set up the listView
         ListView listView = (ListView) mView.findViewById(R.id.course_listings);
-        BookListingDataSource dataSource = new BookListingDataSource(getActivity());
-        dataSource.open();
-        final ArrayList<BookListing> listings = dataSource.fetchEntriesByClass(courseName);
-        dataSource.close();
-        BookListingAdapter adapter = new BookListingAdapter(getActivity(), listings);
+//        BookListingDataSource dataSource = new BookListingDataSource(getActivity());
+//        dataSource.open();
+//        final ArrayList<BookListing> listings = dataSource.fetchEntriesByClass(courseName);
+//        dataSource.close();
+        listings.clear();
+        final BookListingAdapter adapter = new BookListingAdapter(getActivity(), listings);
+
+        mDatabase.child("courses").child(courseName).
+                child("listings").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.d("ListingsTAG", "added a listing to the arrayList");
+                BookListing newListing = dataSnapshot.getValue(BookListing.class);
+                listings.add(newListing);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                listings.remove(dataSnapshot.getValue(BookListing.class));
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+
         listView.setAdapter(adapter);
         if(listings.size()>0) {
             TextView noListings = (TextView) mView.findViewById(R.id.no_listings_text);
             noListings.setVisibility(View.GONE);
         }
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

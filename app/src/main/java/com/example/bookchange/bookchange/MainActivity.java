@@ -39,10 +39,10 @@ public class MainActivity extends AppCompatActivity
     private final int LISTINGS_INDEX = 2;
 
     // firebaseDB variables
-    private DatabaseReference mDatabase;
     private String mUserId;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +66,16 @@ public class MainActivity extends AppCompatActivity
         mUser = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        // make sure the user is logged in
+        if (mUser == null) {
+            // Not logged in, launch LoginActivity
+            Intent intent = new Intent(this,LoginActivity.class);
+            this.startActivity(intent);
+            finish();
+        } else {
+            mUserId = mUser.getUid(); // get the Uid
+        }
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         account = new BookchangeAccount("chrisloughlin","crlough18@gmail.com");
@@ -76,16 +86,6 @@ public class MainActivity extends AppCompatActivity
             android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frag , fragment);
             fragmentTransaction.commit();
-        }
-
-        // make sure the user is logged in
-        if (mUser == null) {
-            // Not logged in, launch LoginActivity
-            Intent intent = new Intent(this,LoginActivity.class);
-            this.startActivity(intent);
-            finish();
-        } else {
-            mUserId = mUser.getUid(); // get the Uid
         }
     }
 
@@ -155,6 +155,10 @@ public class MainActivity extends AppCompatActivity
         // get display name from the mUser
         intent.putExtra("account_name", mUser.getDisplayName());
         startActivity(intent);
+    }
+
+    public void onUnsubscribeClicked(View view){
+        mDatabase.child("users").child()
     }
 
     public void addSubToAccount(String className){
