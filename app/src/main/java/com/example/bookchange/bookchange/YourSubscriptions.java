@@ -3,6 +3,7 @@ package com.example.bookchange.bookchange;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,8 @@ public class YourSubscriptions extends Fragment {
 //        MainActivity activity = (MainActivity) getActivity();
 //        BookchangeAccount account = activity.getAccount();
 
+        Log.d("subs", "subs");
+        Log.d("uID", userId);
         subscriptions = new ArrayList<>();
 
         // set up the listView
@@ -66,7 +69,7 @@ public class YourSubscriptions extends Fragment {
 //        BookListingDataSource dataSource = new BookListingDataSource(getActivity());
 //        dataSource.open();
 //        child("users").child(userId).
-        subscriptions.clear();
+//        subscriptions.clear();
         mDatabase.child("users").child(userId).child("subscriptions").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
