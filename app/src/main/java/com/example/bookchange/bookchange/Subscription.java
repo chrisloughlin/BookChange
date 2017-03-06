@@ -10,23 +10,23 @@ import java.util.ArrayList;
 
 public class Subscription {
     private String userID;
-    private ArrayList<String> courses;
+    private String courses;
 
     public Subscription(){
     }
 
     public Subscription(String id){
         userID = id;
-        courses = new ArrayList<String>();
+        courses = new String();
     }
 
     public void setId(String id){ userID = id;}
 
-    public void setClasses(ArrayList<String> classes){ courses = classes;}
+    public void setClasses(String classes){ courses = classes;}
 
     public String getId(){return userID;}
 
-    public ArrayList<String> getClasses(){return courses;}
+    public String getClasses(){return courses;}
 
-    public void addToClasses(String c){ courses.add(c); }
+    public void addSubscription(String c){ courses = c; }
 }
