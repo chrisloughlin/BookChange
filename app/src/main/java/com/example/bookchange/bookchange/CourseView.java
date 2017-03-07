@@ -149,7 +149,7 @@ public class CourseView extends Fragment {
 //                Subscription subscription = new Subscription(subRef.getKey());
 //                subscription.addSubscription(courseName);
 //                subRef.getKey()
-                mDatabase.child("users").child(userId).child("subscriptions").child(courseName);
+                mDatabase.child("users").child(userId).child("subscriptions").child(courseName).setValue(courseName);
             }
         });
 
