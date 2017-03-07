@@ -133,6 +133,8 @@ public class HomeFragment extends Fragment{
 
         }
         else{
+            ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.GONE);
             Button subButton = (Button) view.findViewById(R.id.add_subs);
             TextView textView = (TextView) view.findViewById(R.id.home_text_1);
             TextView textView2 = (TextView) view.findViewById(R.id.home_text_2);
