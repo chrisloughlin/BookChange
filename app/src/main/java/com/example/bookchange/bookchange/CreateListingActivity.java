@@ -223,7 +223,7 @@ public class CreateListingActivity extends AppCompatActivity {
                 break;
 
             case CROP_CODE:
-                endCrop(resultCode, data);
+                endCrop(resultCode, Crop.getOutput(data));
                 if(fromCamera){
                     File f = new File(takenUri.getPath());
                     if(f.exists()) f.delete();
@@ -237,8 +237,8 @@ public class CreateListingActivity extends AppCompatActivity {
         Crop.of(start, end).asSquare().start(this);
     }
 
-    private void endCrop(int result, Intent intent){
-        croppedUri = Crop.getOutput(intent);
+    private void endCrop(int result, Uri uri){
+        croppedUri = uri;
         listingPic.setImageURI(croppedUri);
     }
 
