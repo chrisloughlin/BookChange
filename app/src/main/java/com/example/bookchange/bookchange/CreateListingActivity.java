@@ -2,12 +2,14 @@ package com.example.bookchange.bookchange;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.soundcloud.android.crop.Crop;
 
 /**
  * Created by christopher on 2/27/17.
@@ -31,6 +34,14 @@ public class CreateListingActivity extends AppCompatActivity {
     private String mUserId;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
+
+    private static final String[] PERMISSION = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+    public static final int CROP_CODE = Crop.REQUEST_CROP;
+    public static final int CAMERA_CODE = 0, GALLERY_CODE = 1;
+    public static final String CROP_KEY = "cropKey";
+    Boolean fromCamera;
+    private Uri takenUri, croppedUri;
+    private ImageView profPic;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +65,13 @@ public class CreateListingActivity extends AppCompatActivity {
         }
 
         getCameraPermission();
+        if(savedInstanceState != null) croppedUri = savedInstanceState.getParcelable(CROP_KEY);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedState){
+        super.onSaveInstanceState(savedState);
+        savedState.putParcelable(CROP_KEY, croppedUri);
     }
 
     public void onSaveListingClicked(View view){
@@ -100,6 +118,12 @@ public class CreateListingActivity extends AppCompatActivity {
 
     public void onPhotoClicked(View view){
 
+    }
+
+    private void choosePic(){
+        fromCamera = false;
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, GALLERY_CODE);
     }
 
     private void getCameraPermission(){
