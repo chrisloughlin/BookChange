@@ -159,8 +159,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void onAddSubscriptionClicked(View view) {
-        DialogFragment newFrag = new DepartmentsFrag();
-        newFrag.show(getSupportFragmentManager(), "departmentsDialogFragment");
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        DepartmentFragment fragment = (DepartmentFragment) frags.get(DEP_INDEX);
+        fragmentTransaction.add(fragment,"detail").addToBackStack(null).replace(R.id.frag, fragment);
+        fragmentTransaction.commit();
     }
 
     public void onCreateListingClicked(View view){
