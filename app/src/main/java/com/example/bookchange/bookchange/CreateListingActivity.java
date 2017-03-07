@@ -48,7 +48,7 @@ public class CreateListingActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
 
-    private static final String[] PERMISSION = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+    private static final String[] PERMISSION = new String[]{"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.CAMERA"};
     public static final int CROP_CODE = Crop.REQUEST_CROP;
     public static final int CAMERA_CODE = 0, GALLERY_CODE = 1;
     public static final String CROP_KEY = "cropKey";
