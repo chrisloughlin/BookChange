@@ -133,7 +133,7 @@ public class CreateListingActivity extends AppCompatActivity {
     }
 
     private void initializePicBtn() {
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), "android.permission.CAMERA") != PackageManager.PERMISSION_GRANTED) {
             getCameraPermission();
         } else {
             picBtn.setOnClickListener(new View.OnClickListener() {
@@ -244,13 +244,13 @@ public class CreateListingActivity extends AppCompatActivity {
     private void getCameraPermission(){
         if (Build.VERSION.SDK_INT < 23) return;
 
-        else if( (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
-                (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) ) {
+        else if( (checkSelfPermission("android.permission.WRITE_EXTERNAL_STORAGE") == PackageManager.PERMISSION_GRANTED) &&
+                (checkSelfPermission("android.permission.CAMERA") == PackageManager.PERMISSION_GRANTED) ) {
             return;
         }
 
-        if ( (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) ||
-                (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) ){
+        if ( (checkSelfPermission("android.permission.WRITE_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED) ||
+                (checkSelfPermission("android.permission.CAMERA") != PackageManager.PERMISSION_GRANTED) ){
             requestPermissions(PERMISSION, 0);
         }
 
