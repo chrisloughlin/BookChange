@@ -62,13 +62,11 @@ public class HomeFragment extends Fragment{
 
         adapter = new BookListingAdapter(getActivity(), listings);
 
-        mDatabase.child("users").child(userId).child("subscriptions")
-                .addChildEventListener(new ChildEventListener() {
+        mDatabase.child("users").child(userId).child("subscriptions").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 listings.clear();
-                mDatabase.child("courses").child(dataSnapshot.getValue(Subscription.class)
-                        .getClasses()).child("listings")
+                mDatabase.child("courses").child(dataSnapshot.getValue(String.class)).child("listings")
                         .addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {

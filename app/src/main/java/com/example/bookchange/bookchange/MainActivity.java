@@ -7,8 +7,6 @@ import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -18,9 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,7 +55,7 @@ public class MainActivity extends AppCompatActivity
         frags = new ArrayList<>();
         frags.add(new HomeFragment());
 //       frags.add(new SubscriptionsFragment());
-        frags.add(new YourSubscriptions());
+        frags.add(new ManageSubscriptionsFragment());
         frags.add(new YourListings());
 
         // Initialize mAuth, mUser, and mDatabase
@@ -123,7 +119,7 @@ public class MainActivity extends AppCompatActivity
             // launch the subscription fragment (Preferences fragment?)
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            YourSubscriptions fragment = (YourSubscriptions) frags.get(SUB_INDEX);
+            ManageSubscriptionsFragment fragment = (ManageSubscriptionsFragment) frags.get(SUB_INDEX);
             fragmentTransaction.replace(R.id.frag, fragment);
             fragmentTransaction.commit();
         }

@@ -134,19 +134,9 @@ public class CourseView extends Fragment {
             @Override
             public void onClick(View v) {
 
-//                DatabaseReference pushedListingsRef = mDatabase.child("courses").child(courseName).
-//                        child("listings").push();
-//                bookListing.setId(pushedListingsRef.getKey());
-//                pushedListingsRef.setVaklue(bookListing);
-//                // insert a listing under users/mUserID/listings
-//                mDatabase.child("users").child(mUserId).child("listings").child(pushedListingsRef.getKey()).setValue(bookListing);
-
-//                Subscription subscription = new Subscription(userId);
-//                subscription.addSubscription(courseName);
-//                mDatabase.child(userId).setValue(subscription);
-
-                DatabaseReference subRef = mDatabase.child("users").child(userId).child("subscriptions").push();
-//                Subscription subscription = new Subscription(subRef.getKey());
+//
+//                DatabaseReference subRef = mDatabase.child("users").child(userId).child("subscriptions").push();
+//                Subscription subscription = new Subscription();
 //                subscription.addSubscription(courseName);
 //                subRef.getKey()
                 mDatabase.child("users").child(userId).child("subscriptions").child(courseName).setValue(courseName);

@@ -2,18 +2,14 @@ package com.example.bookchange.bookchange;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,15 +21,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 /**
  * Created by sachinvadodaria on 3/2/17.
  */
 
-public class YourSubscriptions extends Fragment {
+public class ManageSubscriptionsFragment extends Fragment {
 
     private final String ENTRY_KEY = "ENTRY_ID";
     // firebaseDB variables
@@ -41,7 +35,7 @@ public class YourSubscriptions extends Fragment {
     private String userId;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
-    private ArrayList<Subscription> subscriptions;
+    private ArrayList<String> subscriptions;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -64,7 +58,7 @@ public class YourSubscriptions extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup paramsGroup, Bundle savedInstanceState){
 
-        View mView = inflater.inflate(R.layout.yoursubsfragment, paramsGroup, false);
+        View mView = inflater.inflate(R.layout.managesubscriptionsfragment, paramsGroup, false);
         // get the selected course
 //        MainActivity activity = (MainActivity) getActivity();
 //        BookchangeAccount account = activity.getAccount();
@@ -84,7 +78,7 @@ public class YourSubscriptions extends Fragment {
         mDatabase.child("users").child(userId).child("subscriptions").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                subscriptions.add(dataSnapshot.getValue(Subscription.class));
+                subscriptions.add(dataSnapshot.getValue(String.class));
                 adapter.notifyDataSetChanged();
             }
 
@@ -93,7 +87,7 @@ public class YourSubscriptions extends Fragment {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                subscriptions.remove(dataSnapshot.getValue(Subscription.class));
+                subscriptions.remove(dataSnapshot.getValue(String.class));
                 adapter.notifyDataSetChanged();
             }
 

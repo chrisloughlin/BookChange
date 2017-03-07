@@ -21,7 +21,7 @@
                 android:title="Your Listings" />
             <item
                 android:id="@+id/nav_subscriptions"
-                android:title="Subscriptions"/>
+                android:title="Manage Subscriptions"/>
 
     </group>
     <group android:id="@+id/logout_group"

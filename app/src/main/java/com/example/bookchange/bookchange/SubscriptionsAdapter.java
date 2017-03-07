@@ -16,7 +16,7 @@ import java.util.List;
 
 public class SubscriptionsAdapter extends ArrayAdapter {
 
-    public SubscriptionsAdapter(Context context, List<Subscription> values){
+    public SubscriptionsAdapter(Context context, List<String> values){
 //        android.R.layout.simple_list_item_1
         super(context, R.layout.subscriptionrow, R.id.subbed_course, values);
     }
@@ -26,8 +26,8 @@ public class SubscriptionsAdapter extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parentViewGroup){
         View view = super.getView(position, convertView, parentViewGroup);
         TextView textView = (TextView) view.findViewById(R.id.subbed_course);
-        Subscription entry = (Subscription) getItem(position);
-        textView.setText(entry.getClasses());
+//        String entry = (String) getItem(position);
+        textView.setText((String) getItem(position));
         return view;
     }
 
