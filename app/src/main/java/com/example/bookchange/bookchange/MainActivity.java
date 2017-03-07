@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity
     private final int SUB_INDEX = 1;
     private final int LISTINGS_INDEX = 2;
     private final int ACC_INDEX = 3;
+    private final int DEP_INDEX = 4;
 
     // firebaseDB variables
     private String mUserId;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity
         frags.add(new ManageSubscriptionsFragment());
         frags.add(new YourListings());
         frags.add(new AccountDisplayFragment());
+        frags.add(new DepartmentFragment());
 
         // Initialize mAuth, mUser, and mDatabase
         mAuth = FirebaseAuth.getInstance();
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        getFragmentManager().popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
         if (id == R.id.nav_home) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -115,8 +117,11 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.frag, fragment);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_department) {
-            DialogFragment newFrag = new DepartmentsFrag();
-            newFrag.show(getSupportFragmentManager(), "departmentsDialogFragment");
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            DepartmentFragment fragment = (DepartmentFragment) frags.get(DEP_INDEX);
+            fragmentTransaction.replace(R.id.frag, fragment);
+            fragmentTransaction.commit();
         } else if (id == R.id.nav_subscriptions) {
             // launch the subscription fragment (Preferences fragment?)
             FragmentManager fragmentManager = getFragmentManager();
@@ -166,6 +171,8 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra("account_name", mUser.getDisplayName());
         startActivity(intent);
     }
+
+
 
 //    public void onUnsubscribeClicked(View view){
 //        mDatabase.child("users").child(mUserId).child("subscriptions").;

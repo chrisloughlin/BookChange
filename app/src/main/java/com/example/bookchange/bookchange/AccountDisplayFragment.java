@@ -18,7 +18,7 @@ public class AccountDisplayFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle savedInstanceState) {
         super.onCreateView(layoutInflater, viewGroup, savedInstanceState);
-        View view = layoutInflater.inflate(R.layout.rate_transaction_id,viewGroup,false);
+        View view = layoutInflater.inflate(R.layout.account_display,viewGroup,false);
         TextView accountName = (TextView) view.findViewById(R.id.account_page_account_name);
         accountName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         return view;

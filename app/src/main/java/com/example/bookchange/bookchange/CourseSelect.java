@@ -62,8 +62,8 @@ public class CourseSelect extends Fragment {
                 fragment.setArguments(bundle);
                 FragmentManager fragmentManager = getActivity().getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.frag, fragment);
-                fragmentTransaction.commit();
+                fragmentTransaction.add(fragment,"detail").addToBackStack(null)
+                        .replace(R.id.frag, fragment).commit();
             }
         });
 
