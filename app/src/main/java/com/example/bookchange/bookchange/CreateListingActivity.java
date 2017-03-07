@@ -1,6 +1,8 @@
 package com.example.bookchange.bookchange;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -50,6 +52,8 @@ public class CreateListingActivity extends AppCompatActivity {
         } else {
             mUserId = mUser.getUid(); // get the Uid
         }
+
+        getCameraPermission();
     }
 
     public void onSaveListingClicked(View view){
@@ -88,10 +92,31 @@ public class CreateListingActivity extends AppCompatActivity {
             mDatabase.child("users").child(mUserId).child("listings").child(pushedListingsRef.getKey()).setValue(bookListing);
             finish();
         }
-
     }
 
     public void onCancelListingClicked(View view){
         finish();
+    }
+
+    public void onPhotoClicked(View view){
+
+    }
+
+    private void getCameraPermission(){
+        if (Build.VERSION.SDK_INT < 23) return;
+
+        else if( (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
+                (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) ) {
+            return;
+        }
+
+        if ( (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) ||
+                (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) ){
+            requestPermissions(PERMISSION, 0);
+        }
+
+        else {
+            requestPermissions(PERMISSION, 0);
+        }
     }
 }

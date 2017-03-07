@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /**
@@ -111,13 +113,12 @@ public class ManageSubscriptionsFragment extends Fragment {
                     }
                 });
 
+//                AlertDialog alertdialog = builder.create();
                 builder.show();
+//                alertdialog.getWindow().setLayout(600, 400);
             }
         });
 
         return mView;
     }
-
-    //TODO make the subscription update as soon as one is created
-
 }

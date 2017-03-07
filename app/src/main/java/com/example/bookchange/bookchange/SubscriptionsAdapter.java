@@ -26,7 +26,6 @@ public class SubscriptionsAdapter extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parentViewGroup){
         View view = super.getView(position, convertView, parentViewGroup);
         TextView textView = (TextView) view.findViewById(R.id.subbed_course);
-//        String entry = (String) getItem(position);
         textView.setText((String) getItem(position));
         return view;
     }
