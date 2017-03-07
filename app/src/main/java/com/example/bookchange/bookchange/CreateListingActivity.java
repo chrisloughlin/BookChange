@@ -124,6 +124,7 @@ public class CreateListingActivity extends AppCompatActivity {
             // insert a listing under users/mUserID/listings
             Log.d("ListingTAG", "added a listing to the user");
             mDatabase.child("users").child(mUserId).child("listings").child(pushedListingsRef.getKey()).setValue(bookListing);
+            savePic();
             finish();
         }
     }
