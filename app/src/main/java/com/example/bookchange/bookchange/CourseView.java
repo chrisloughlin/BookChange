@@ -86,6 +86,8 @@ public class CourseView extends Fragment {
                 Log.d("ListingsTAG", "added a listing to the arrayList");
                 BookListing newListing = dataSnapshot.getValue(BookListing.class);
                 listings.add(newListing);
+                TextView noListings = (TextView) getView().findViewById(R.id.no_listings_text);
+                noListings.setVisibility(View.GONE);
                 adapter.notifyDataSetChanged();
             }
 
