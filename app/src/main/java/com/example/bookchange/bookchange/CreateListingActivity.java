@@ -105,7 +105,7 @@ public class CreateListingActivity extends AppCompatActivity {
             ((EditText)findViewById(R.id.priceEditText)).setError("Required");
         }
         else if (courseName.equals("")){
-           Toast toast = Toast.makeText(this,"Add Course Name",Toast.LENGTH_SHORT);
+           Toast toast = Toast.makeText(this,"Add Courses Name",Toast.LENGTH_SHORT);
             toast.show();
             ((EditText)findViewById(R.id.courseNameEditText)).setError("Required");
         }

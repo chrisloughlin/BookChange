@@ -35,7 +35,7 @@ public class BookListing {
         mPosterUsername = "Phill";
         mPrice = 3.50;
         mBookTitle = "book";
-        mClassName = "Course";
+        mClassName = "Courses";
         mEmail= "email@email.com";
     }
 
