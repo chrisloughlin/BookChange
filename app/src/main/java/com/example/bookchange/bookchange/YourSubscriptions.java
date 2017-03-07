@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,6 +24,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -71,7 +74,7 @@ public class YourSubscriptions extends Fragment {
         subscriptions = new ArrayList<>();
 
         // set up the listView
-        ListView listView = (ListView) mView.findViewById(R.id.yoursubslist);
+        final ListView listView = (ListView) mView.findViewById(R.id.yoursubslist);
 //        BookListingDataSource dataSource = new BookListingDataSource(getActivity());
 //        dataSource.open();
 //        child("users").child(userId).
@@ -103,41 +106,36 @@ public class YourSubscriptions extends Fragment {
 //        final ArrayList<BookListing> listings = dataSource.fetchEntriesByPosterUsername(account.getAccountName());
 //        dataSource.close();
         listView.setAdapter(adapter);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-////                getActivity().startActivity(new Intent(getActivity(), CourseView.class));
-////                CourseView newFrag = new CourseView();
-////                newFrag.show(getSupportFragmentManager(), "courseviewFragment");
-//                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//
-////                final EditText input = new EditText(this);
-////                input.setInputType(type);
-////                input.setHint(hint);
-////                builder.setView(input);
-//
-//                builder.setPositiveButton("Unsubscribe", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                });
-//                builder.setNegativeButton("View Listings", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        Intent intent;
-//                        intent = new Intent(getActivity(), DisplayListingActivity.class);
-//                        String entryId = listings.get(position).getId();
-//                        String courseName = listings.get(position).getClassName();
-//                        intent.putExtra(ENTRY_KEY, entryId);
-//                        intent.putExtra(COURSE_KEY, courseName);
-//                        getActivity().startActivity(intent);
-//                    }
-//                });
-//
-//                builder.show();
-//            }
-//        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                getActivity().startActivity(new Intent(getActivity(), CourseView.class));
+//                CourseView newFrag = new CourseView();
+//                newFrag.show(getSupportFragmentManager(), "courseviewFragment");
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                TextView course = (TextView) listView.findViewById(R.id.subbed_course);
+//                final EditText input = new EditText(this);
+//                input.setInputType(type);
+//                input.setHint(hint);
+//                builder.setView(input);
+
+                builder.setPositiveButton("Unsubscribe", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+            }
+        });
 
         return mView;
     }

@@ -8,7 +8,6 @@
         android:layout_width= "wrap_content"
         android:layout_height="50dp"
         android:id="@+id/subbed_course"
-        android:text=""
         android:textSize="@dimen/subtext_size"
         android:layout_gravity="center"/>
     <!--<Button-->
