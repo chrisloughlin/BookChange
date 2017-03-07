@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     private final int HOME_INDEX = 0;
     private final int SUB_INDEX = 1;
     private final int LISTINGS_INDEX = 2;
+    private final int ACC_INDEX = 3;
 
     // firebaseDB variables
     private String mUserId;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity
 //       frags.add(new SubscriptionsFragment());
         frags.add(new ManageSubscriptionsFragment());
         frags.add(new YourListings());
+        frags.add(new AccountDisplayFragment());
 
         // Initialize mAuth, mUser, and mDatabase
         mAuth = FirebaseAuth.getInstance();
@@ -135,6 +137,14 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this,LoginActivity.class);
             this.startActivity(intent);
             finish();
+        }
+        else if (id == R.id.nav_account){
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            AccountDisplayFragment fragment = (AccountDisplayFragment) frags.get(ACC_INDEX);
+            fragmentTransaction.replace(R.id.frag, fragment);
+            fragmentTransaction.commit();
+
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
