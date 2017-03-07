@@ -1,14 +1,22 @@
 package com.example.bookchange.bookchange;
 
+import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +26,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.soundcloud.android.crop.Crop;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Created by christopher on 2/27/17.
@@ -41,7 +54,8 @@ public class CreateListingActivity extends AppCompatActivity {
     public static final String CROP_KEY = "cropKey";
     Boolean fromCamera;
     private Uri takenUri, croppedUri;
-    private ImageView profPic;
+    private ImageView listingPic;
+    ImageButton picBtn;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +78,8 @@ public class CreateListingActivity extends AppCompatActivity {
             mUserId = mUser.getUid(); // get the Uid
         }
 
+        picBtn = (ImageButton) findViewById(R.id.picBtn);
+        initializePicBtn();
         getCameraPermission();
         if(savedInstanceState != null) croppedUri = savedInstanceState.getParcelable(CROP_KEY);
     }
@@ -116,14 +132,113 @@ public class CreateListingActivity extends AppCompatActivity {
         finish();
     }
 
-    public void onPhotoClicked(View view){
+    private void initializePicBtn() {
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            getCameraPermission();
+        } else {
+            picBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CreateListingActivity.this);
+                    builder.setTitle("Pick Profile Picture");
+                    final CharSequence[] options = {"Open Camera", "Select from Gallery"};
+                    builder.setItems(options, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int item) {
+                            if (options[item].equals("Open Camera")) {
+                                takePic();
+                            } else {
+                                choosePic();
+                            }
+                        }
+                    });
+                    builder.show();
+                }
+            });
+        }
+    }
 
+    private void takePic(){
+        fromCamera = true;
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        ContentValues values = new ContentValues(1);
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
+
+        takenUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, takenUri);
+        startActivityForResult(intent, CAMERA_CODE);
     }
 
     private void choosePic(){
         fromCamera = false;
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, GALLERY_CODE);
+    }
+
+    private void savePic() {
+        listingPic.buildDrawingCache();
+        Bitmap bitmap = listingPic.getDrawingCache();
+        try {
+            FileOutputStream stream = openFileOutput("profile_photo.png", MODE_PRIVATE);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            stream.flush();
+            stream.close();
+        }
+        catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    private void loadPic() {
+        try {
+            if(croppedUri != null) listingPic.setImageURI(croppedUri);
+            else {
+                FileInputStream stream = openFileInput("profile_photo.png");
+                Bitmap bitmap = BitmapFactory.decodeStream(stream);
+                listingPic.setImageBitmap(bitmap);
+                stream.close();
+            }
+        }
+        catch (IOException ioe) {
+            listingPic.setImageResource(R.drawable.ic_book_black_48dp);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode != RESULT_OK){
+//            Toast.makeText(this, "Error while cropping!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        switch(requestCode) {
+            case CAMERA_CODE:
+                startCrop(takenUri);
+                break;
+
+            case GALLERY_CODE:
+                Uri galleryImg = data.getData();
+                startCrop(galleryImg);
+                break;
+
+            case CROP_CODE:
+                endCrop(resultCode, data);
+                if(fromCamera){
+                    File f = new File(takenUri.getPath());
+                    if(f.exists()) f.delete();
+                    break;
+                }
+        }
+    }
+
+    private void startCrop(Uri start){
+        Uri end = Uri.fromFile(new File(getCacheDir(), "cropped"));
+        Crop.of(start, end).asSquare().start(this);
+    }
+
+    private void endCrop(int result, Intent intent){
+        croppedUri = Crop.getOutput(intent);
+        listingPic.setImageURI(croppedUri);
     }
 
     private void getCameraPermission(){

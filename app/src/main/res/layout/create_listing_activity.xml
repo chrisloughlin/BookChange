@@ -14,8 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|end"
-        android:src="@drawable/ic_camera_alt_black_48dp"
-        android:onClick="onPhotoClicked"/>
+        android:src="@drawable/ic_camera_alt_black_48dp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
