@@ -21,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -79,7 +80,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         account = new BookchangeAccount("chrisloughlin","crlough18@gmail.com");
-
+        TextView navText = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_header_textView);
+        navText.setText("Hello, "+mUser.getDisplayName());
         if(savedInstanceState==null){
             HomeFragment fragment = (HomeFragment)frags.get(HOME_INDEX);
             android.app.FragmentManager fragmentManager = getFragmentManager();
@@ -132,7 +134,12 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.frag, fragment);
             fragmentTransaction.commit();
         }
-
+        else if (id == R.id.nav_logout){
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(this,LoginActivity.class);
+            this.startActivity(intent);
+            finish();
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setSelected(false);

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,12 +38,14 @@ public class HomeFragment extends Fragment{
     private String userId;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
+    private Boolean waited = false;
     private ArrayList<BookListing> listings = new ArrayList<>();
+    BookListingAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle savedInstanceState){
         super.onCreateView(layoutInflater,viewGroup,savedInstanceState);
-        View view = layoutInflater.inflate(R.layout.home_fragment,viewGroup,false);
+        final View view = layoutInflater.inflate(R.layout.home_fragment,viewGroup,false);
 
         // Initialize mAuth, mUser, and mDatabase
         mAuth = FirebaseAuth.getInstance();
@@ -57,7 +60,7 @@ public class HomeFragment extends Fragment{
             userId = mUser.getUid(); // get the Uid
         }
 
-        final BookListingAdapter adapter = new BookListingAdapter(getActivity(), listings);
+        adapter = new BookListingAdapter(getActivity(), listings);
 
         mDatabase.child("users").child(userId).child("subscriptions")
                 .addChildEventListener(new ChildEventListener() {
@@ -73,8 +76,15 @@ public class HomeFragment extends Fragment{
                         BookListing newListing = dataSnapshot.getValue(BookListing.class);
                         listings.add(newListing);
                         Log.d("HomeTAG", "Listings size: "+ listings.size());
-                        adapter.notifyDataSetChanged();
-                    }
+                        /*Button subButton = (Button) view.findViewById(R.id.add_subs);
+                        TextView textView = (TextView) view.findViewById(R.id.home_text_1);
+                        TextView textView2 = (TextView) view.findViewById(R.id.home_text_2);
+                        subButton.setVisibility(View.GONE);
+                        textView.setVisibility(View.GONE);
+                        textView2.setVisibility(View.GONE);
+                        listView = (ListView) view.findViewById(R.id.home_list_view);
+                        listView.setAdapter(adapter);*/
+                        }
 
                     @Override
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
@@ -92,6 +102,7 @@ public class HomeFragment extends Fragment{
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
+                        Log.d("Listener", " Cancelled");
                     }
                 });
             }
@@ -112,23 +123,68 @@ public class HomeFragment extends Fragment{
         });
 
         Log.d("HomeTAG", "Listings size: "+ listings.size());
+        if(!waited) {
+            new LoadDataWait().execute();
+        }
+        else if(listings.size()>0){
+            ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.GONE);
+            listView = (ListView) view.findViewById(R.id.home_list_view);
+            listView.setAdapter(adapter);
+            listView.setVisibility(View.VISIBLE);
 
-        if(listings.size()>0) {
-            Log.d("HomeTAG", "go inside the if statement, listings was populated");
+        }
+        else{
             Button subButton = (Button) view.findViewById(R.id.add_subs);
             TextView textView = (TextView) view.findViewById(R.id.home_text_1);
             TextView textView2 = (TextView) view.findViewById(R.id.home_text_2);
-            subButton.setVisibility(View.GONE);
-            textView.setVisibility(View.GONE);
-            textView2.setVisibility(View.GONE);
-            listView = (ListView) view.findViewById(R.id.home_list_view);
-            listView.setAdapter(adapter);
-        }
-        else {
+            subButton.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.VISIBLE);
+            textView2.setVisibility(View.VISIBLE);
 
         }
+
         return view;
     }
 
+    public class LoadDataWait extends AsyncTask<Void,Void,Void>{
 
+        @Override
+        protected Void doInBackground(Void...voids) {
+            try{
+                Thread.sleep(3000);
+            }
+            catch (InterruptedException e){
+                e.printStackTrace();
+            }
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(Void result){
+            super.onPostExecute(result);
+            waited= true;
+            View view = getView();
+            ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.GONE);
+            if(listings.size()>0) {
+                Log.d("HomeTAG", "go inside the if statement, listings was populated" + listings.size());
+                listView = (ListView) view.findViewById(R.id.home_list_view);
+                listView.setAdapter(adapter);
+                listView.setVisibility(View.VISIBLE);
+            }
+            else {
+                Button subButton = (Button) view.findViewById(R.id.add_subs);
+                TextView textView = (TextView) view.findViewById(R.id.home_text_1);
+                TextView textView2 = (TextView) view.findViewById(R.id.home_text_2);
+                subButton.setVisibility(View.VISIBLE);
+                textView.setVisibility(View.VISIBLE);
+                textView2.setVisibility(View.VISIBLE);
+            }
+
+
+        }
+    }
 }
+

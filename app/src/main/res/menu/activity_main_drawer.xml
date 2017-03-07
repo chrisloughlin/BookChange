@@ -11,8 +11,11 @@
 
     </group>
 
-    <item android:title="Account">
-        <menu>
+    <group android:id="@+id/account_group"
+        android:checkableBehavior="single">
+            <item
+                android:id="@+id/nav_account"
+                android:title="Account"/>
             <item
                 android:id="@+id/nav_listings"
                 android:title="Your Listings" />
@@ -20,7 +23,13 @@
                 android:id="@+id/nav_subscriptions"
                 android:title="Subscriptions"/>
 
-        </menu>
-    </item>
+    </group>
+    <group android:id="@+id/logout_group"
+        android:checkableBehavior="single">
+
+            <item
+                android:id="@+id/nav_logout"
+                android:title="Sign Out"/>
+    </group>
 
 </menu>

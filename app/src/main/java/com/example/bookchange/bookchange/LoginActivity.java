@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordField = (EditText) findViewById(R.id.password_edit_text);
 
         // set up firebase
-        FirebaseAuth.getInstance().signOut(); // sign out user when login screen is opened
+        //FirebaseAuth.getInstance().signOut(); // sign out user when login screen is opened
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
