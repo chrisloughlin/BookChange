@@ -74,14 +74,6 @@ public class HomeFragment extends Fragment{
                         BookListing newListing = dataSnapshot.getValue(BookListing.class);
                         listings.add(newListing);
                         Log.d("HomeTAG", "Listings size: "+ listings.size());
-                        /*Button subButton = (Button) view.findViewById(R.id.add_subs);
-                        TextView textView = (TextView) view.findViewById(R.id.home_text_1);
-                        TextView textView2 = (TextView) view.findViewById(R.id.home_text_2);
-                        subButton.setVisibility(View.GONE);
-                        textView.setVisibility(View.GONE);
-                        textView2.setVisibility(View.GONE);
-                        listView = (ListView) view.findViewById(R.id.home_list_view);
-                        listView.setAdapter(adapter);*/
                         }
 
                     @Override

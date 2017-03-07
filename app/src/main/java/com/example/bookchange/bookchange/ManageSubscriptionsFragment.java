@@ -59,20 +59,10 @@ public class ManageSubscriptionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup paramsGroup, Bundle savedInstanceState){
 
         View mView = inflater.inflate(R.layout.managesubscriptionsfragment, paramsGroup, false);
-        // get the selected course
-//        MainActivity activity = (MainActivity) getActivity();
-//        BookchangeAccount account = activity.getAccount();
-
-        Log.d("subs", "subs");
-        Log.d("uID", userId);
         subscriptions = new ArrayList<>();
 
         // set up the listView
         final ListView listView = (ListView) mView.findViewById(R.id.yoursubslist);
-//        BookListingDataSource dataSource = new BookListingDataSource(getActivity());
-//        dataSource.open();
-//        child("users").child(userId).
-//        subscriptions.clear();
         final SubscriptionsAdapter adapter = new SubscriptionsAdapter(getActivity(), subscriptions);
 
         mDatabase.child("users").child(userId).child("subscriptions").addChildEventListener(new ChildEventListener() {
@@ -97,26 +87,20 @@ public class ManageSubscriptionsFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-//        final ArrayList<BookListing> listings = dataSource.fetchEntriesByPosterUsername(account.getAccountName());
-//        dataSource.close();
+
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                getActivity().startActivity(new Intent(getActivity(), CourseView.class));
-//                CourseView newFrag = new CourseView();
-//                newFrag.show(getSupportFragmentManager(), "courseviewFragment");
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                TextView course = (TextView) listView.findViewById(R.id.subbed_course);
-//                final EditText input = new EditText(this);
-//                input.setInputType(type);
-//                input.setHint(hint);
-//                builder.setView(input);
-
+                final String course = listView.getItemAtPosition(position).toString();
+//                TextView tv = (TextView) listView.findViewById(R.id.subbed_course);
+//                String course = tv.get;
+//
                 builder.setPositiveButton("Unsubscribe", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        mDatabase.child("users").child(userId).child("subscriptions").child(course).removeValue();
                     }
                 });
 
