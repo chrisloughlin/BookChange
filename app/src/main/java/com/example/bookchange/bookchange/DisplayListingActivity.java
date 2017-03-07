@@ -81,6 +81,12 @@ public class DisplayListingActivity extends AppCompatActivity {
                             if(!mUser.getDisplayName().equals(entry.getPosterUsername())){
                                 Button delete = (Button) findViewById(R.id.delete_button);
                                 delete.setVisibility(View.GONE);
+                                Button complete = (Button) findViewById(R.id.finish_button);
+                                complete.setVisibility(View.GONE);
+                            }
+                            else{
+                                Button contact = (Button) findViewById(R.id.contact_button);
+                                contact.setVisibility(View.GONE);
                             }
                             TextView emailTextView = (TextView) findViewById(R.id.emailTextView);
                             emailTextView.setText(entry.getEmail());
@@ -123,6 +129,12 @@ public class DisplayListingActivity extends AppCompatActivity {
     }
     public void onCloseClicked(View view){
         finish();
+    }
+    public void onCompleteTransactionClicked(View view){
+        mDatabase.child("courses").child(courseName).child("listings").child(entryID).removeValue();
+        mDatabase.child("users").child(mUserId).child("listings").child(entryID).removeValue();
+        finish();
+        //TODO: COMPLETE TRANSACTION
     }
     public void onDeleteClicked(View view){
         // remove the listing from the database under both the course and the user
