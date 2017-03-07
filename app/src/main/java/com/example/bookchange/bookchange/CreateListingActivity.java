@@ -50,7 +50,7 @@ public class CreateListingActivity extends AppCompatActivity {
 
     private static final String[] PERMISSION = new String[]{"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.CAMERA"};
     public static final int CROP_CODE = Crop.REQUEST_CROP;
-    public static final int CAMERA_CODE = 0, GALLERY_CODE = 1;
+    public static final int CAMERA_CODE = 0, GALLERY_CODE = 1, REQUEST_IMAGE_CAPTURE = 111;
     public static final String CROP_KEY = "cropKey";
     Boolean fromCamera;
     private Uri takenUri, croppedUri;
@@ -111,18 +111,11 @@ public class CreateListingActivity extends AppCompatActivity {
         }
         else {
             BookListing bookListing = new BookListing(userDisplayName, Double.parseDouble(price), bookTitle, courseName,mUser.getEmail());
-            /*BookListingDataSource dataSource = new BookListingDataSource(this);
-            dataSource.open();
-            dataSource.insertEntry(bookListing);
-            dataSource.close();*/
-
             // insert a new listing in the firebaseDB under courses/coursename/listings
-            DatabaseReference pushedListingsRef = mDatabase.child("courses").child(courseName).
-                    child("listings").push();
+            DatabaseReference pushedListingsRef = mDatabase.child("courses").child(courseName).child("listings").push();
             bookListing.setId(pushedListingsRef.getKey());
             pushedListingsRef.setValue(bookListing);
             // insert a listing under users/mUserID/listings
-            Log.d("ListingTAG", "added a listing to the user");
             mDatabase.child("users").child(mUserId).child("listings").child(pushedListingsRef.getKey()).setValue(bookListing);
             savePic();
             finish();
@@ -141,12 +134,12 @@ public class CreateListingActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(CreateListingActivity.this);
-                    builder.setTitle("Pick Profile Picture");
-                    final CharSequence[] options = {"Open Camera", "Select from Gallery"};
+                    builder.setTitle("Add Images of Your Book");
+                    final CharSequence[] options = {"Take New Picture", "Select from Gallery"};
                     builder.setItems(options, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int item) {
-                            if (options[item].equals("Open Camera")) {
+                            if (options[item].equals("Take New Picture")) {
                                 takePic();
                             } else {
                                 choosePic();
@@ -167,7 +160,9 @@ public class CreateListingActivity extends AppCompatActivity {
 
         takenUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, takenUri);
-        startActivityForResult(intent, CAMERA_CODE);
+        if (intent.resolveActivity(this.getPackageManager()) != null)
+            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+//        CAMERA_CODE
     }
 
     private void choosePic(){
@@ -177,40 +172,52 @@ public class CreateListingActivity extends AppCompatActivity {
     }
 
     private void savePic() {
-        listingPic.buildDrawingCache();
-        Bitmap bitmap = listingPic.getDrawingCache();
-        try {
-            FileOutputStream stream = openFileOutput("profile_photo.png", MODE_PRIVATE);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            stream.flush();
-            stream.close();
-        }
-        catch (IOException exception) {
-            exception.printStackTrace();
-        }
+
+        //firebase save images stuff here
+
+//        listingPic.buildDrawingCache();
+//        Bitmap bitmap = listingPic.getDrawingCache();
+//        try {
+//            FileOutputStream stream = openFileOutput("profile_photo.png", MODE_PRIVATE);
+//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//            stream.flush();
+//            stream.close();
+//        }
+//        catch (IOException exception) {
+//            exception.printStackTrace();
+//        }
     }
 
-    private void loadPic() {
-        try {
-            if(croppedUri != null) listingPic.setImageURI(croppedUri);
-            else {
-                FileInputStream stream = openFileInput("profile_photo.png");
-                Bitmap bitmap = BitmapFactory.decodeStream(stream);
-                listingPic.setImageBitmap(bitmap);
-                stream.close();
-            }
-        }
-        catch (IOException ioe) {
-            listingPic.setImageResource(R.drawable.ic_book_black_48dp);
-        }
-    }
+//    private void loadPic() {
+//        try {
+//            if(croppedUri != null) listingPic.setImageURI(croppedUri);
+//            else {
+//                FileInputStream stream = openFileInput("profile_photo.png");
+//                Bitmap bitmap = BitmapFactory.decodeStream(stream);
+//                listingPic.setImageBitmap(bitmap);
+//                stream.close();
+//            }
+//        }
+//        catch (IOException ioe) {
+//            listingPic.setImageResource(R.drawable.ic_book_black_48dp);
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode != RESULT_OK){
-//            Toast.makeText(this, "Error while cropping!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error while cropping!", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            mImageLabel.setImageBitmap(imageBitmap);
+            encodeBitmapAndSaveToFirebase(imageBitmap);
+        }
+
+
 
         switch(requestCode) {
             case CAMERA_CODE:
@@ -223,7 +230,8 @@ public class CreateListingActivity extends AppCompatActivity {
                 break;
 
             case CROP_CODE:
-                endCrop(resultCode, Crop.getOutput(data));
+                if(data != null)
+                    endCrop(resultCode, Crop.getOutput(data));
                 if(fromCamera){
                     File f = new File(takenUri.getPath());
                     if(f.exists()) f.delete();
