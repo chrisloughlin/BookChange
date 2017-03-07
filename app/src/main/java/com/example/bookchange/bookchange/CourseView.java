@@ -146,9 +146,10 @@ public class CourseView extends Fragment {
 //                mDatabase.child(userId).setValue(subscription);
 
                 DatabaseReference subRef = mDatabase.child("users").child(userId).child("subscriptions").push();
-                Subscription subscription = new Subscription(subRef.getKey());
-                subscription.addSubscription(courseName);
-                mDatabase.child("users").child(userId).child("subscriptions").child(subRef.getKey()).setValue(subscription);
+//                Subscription subscription = new Subscription(subRef.getKey());
+//                subscription.addSubscription(courseName);
+//                subRef.getKey()
+                mDatabase.child("users").child(userId).child("subscriptions").child(courseName);
             }
         });
 
