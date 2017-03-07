@@ -21,46 +21,14 @@ public class SubscriptionsAdapter extends ArrayAdapter {
         super(context, R.layout.subscriptionrow, R.id.subbed_course, values);
     }
 
-//    @Override
-//    public Subscription getItem(int position){
-//        return view.get(position);
-//    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parentViewGroup){
         View view = super.getView(position, convertView, parentViewGroup);
         TextView textView = (TextView) view.findViewById(R.id.subbed_course);
         Subscription entry = (Subscription) getItem(position);
-
-        Log.d("set text", "set course");
-//        ArrayList classes = entry.getClasses();
-
         textView.setText(entry.getClasses());
-
         return view;
     }
-
-//    private final ArrayList</*ExerciseEntry*/> entries;
-//    private final ArrayList<String> subs;
-//
-//    public SubscriptionsAdapter(Context context, ArrayList<ExerciseEntry> data) {
-//        super(context, android.R.layout.simple_list_item_2, android.R.id.text1, data);
-//        subs = data;
-//    }
-//
-//    @Override
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//        View view = super.getView(position, convertView, parent);
-//        TextView tV1 = (TextView) view.findViewById(android.R.id.text1);
-//        TextView tV2 = (TextView) view.findViewById(android.R.id.text2);
-//
-//        String line1 = subs.get(position).getInputType() + ": " + entries.get(position).getActivityType() + ", "
-//                + HistoryFragment.convertDate(subs.get(position).getDateAndTime().getTimeInMillis(), "hh:mm:ss MMM dd yyyy");
-//        String line2 = entries.get(position).getDistance() + " Miles, " + subs.get(position).getDuration() + "secs";
-//
-//        tV1.setText(line1);
-//        tV2.setText(line2);
-//        return view;
-//    }
 
 }
