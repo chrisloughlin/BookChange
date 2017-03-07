@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/rounded_image_view"
+        android:layout_height="150dp"
+        android:layout_width="150dp"
+        android:src="@drawable/bookchange_small"
+        app:riv_corner_radius="1dp"
+        app:riv_border_width="2dip"
+        app:riv_border_color="@color/colorPrimary"
+        app:riv_oval="true"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Account Name"
+        android:layout_gravity="center"
+        android:textSize="15dp"/>
+
+</LinearLayout>
