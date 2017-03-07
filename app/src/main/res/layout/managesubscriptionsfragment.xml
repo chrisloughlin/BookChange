@@ -5,13 +5,23 @@
 
     <TextView
         android:id="@+id/subTitle"
-        android:text="Manage Your Subscriptions"
+        android:text="Your Subscriptions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textColor="@color/black"
         android:layout_marginTop="10dp" />
     <!--android:text="Manage Subscriptions"-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Current Subscriptions"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        />
 
     <ListView
         android:layout_width="match_parent"

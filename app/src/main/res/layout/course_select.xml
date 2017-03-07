@@ -9,6 +9,12 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:id="@+id/title_department"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray">
+    </View>
+
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
