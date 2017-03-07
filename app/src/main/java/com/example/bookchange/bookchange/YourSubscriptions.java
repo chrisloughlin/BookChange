@@ -103,41 +103,41 @@ public class YourSubscriptions extends Fragment {
 //        final ArrayList<BookListing> listings = dataSource.fetchEntriesByPosterUsername(account.getAccountName());
 //        dataSource.close();
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                getActivity().startActivity(new Intent(getActivity(), CourseView.class));
-//                CourseView newFrag = new CourseView();
-//                newFrag.show(getSupportFragmentManager(), "courseviewFragment");
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-//                final EditText input = new EditText(this);
-//                input.setInputType(type);
-//                input.setHint(hint);
-//                builder.setView(input);
-
-                builder.setPositiveButton("Unsubscribe", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                builder.setNegativeButton("View Listings", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent;
-                        intent = new Intent(getActivity(), DisplayListingActivity.class);
-                        String entryId = listings.get(position).getId();
-                        String courseName = listings.get(position).getClassName();
-                        intent.putExtra(ENTRY_KEY, entryId);
-                        intent.putExtra(COURSE_KEY, courseName);
-                        getActivity().startActivity(intent);
-                    }
-                });
-
-                builder.show();
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+////                getActivity().startActivity(new Intent(getActivity(), CourseView.class));
+////                CourseView newFrag = new CourseView();
+////                newFrag.show(getSupportFragmentManager(), "courseviewFragment");
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//
+////                final EditText input = new EditText(this);
+////                input.setInputType(type);
+////                input.setHint(hint);
+////                builder.setView(input);
+//
+//                builder.setPositiveButton("Unsubscribe", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                });
+//                builder.setNegativeButton("View Listings", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        Intent intent;
+//                        intent = new Intent(getActivity(), DisplayListingActivity.class);
+//                        String entryId = listings.get(position).getId();
+//                        String courseName = listings.get(position).getClassName();
+//                        intent.putExtra(ENTRY_KEY, entryId);
+//                        intent.putExtra(COURSE_KEY, courseName);
+//                        getActivity().startActivity(intent);
+//                    }
+//                });
+//
+//                builder.show();
+//            }
+//        });
 
         return mView;
     }
