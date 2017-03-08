@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:text="Your Listings"
         android:layout_gravity="center"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_marginTop="10dp"
         android:textSize="@dimen/subtext_size"/>
     <ListView
