@@ -53,6 +53,10 @@
 
         </activity>
 
+        <service
+            android:name=".NotificationService"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

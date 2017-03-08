@@ -91,6 +91,12 @@ public class ManageSubscriptionsFragment extends Fragment {
         });
 
         listView.setAdapter(adapter);
+
+        // start service to look for changes in the subscribed courses
+        Intent mServiceIntent = new Intent(getActivity(), NotificationService.class);
+        mServiceIntent.putStringArrayListExtra("subscriptions_key", subscriptions);
+        getActivity().startService(mServiceIntent);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
