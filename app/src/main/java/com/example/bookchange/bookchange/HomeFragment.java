@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment{
 
-    private BookListingDataSource dataSource;
+//    private BookListingDataSource dataSource;
     private ListView listView;
 
     private DatabaseReference mDatabase;
@@ -122,6 +122,7 @@ public class HomeFragment extends Fragment{
             listView = (ListView) view.findViewById(R.id.home_list_view);
             listView.setAdapter(adapter);
             listView.setVisibility(View.VISIBLE);
+            setListViewListener(listView);
 
         }
         else{
@@ -137,6 +138,21 @@ public class HomeFragment extends Fragment{
         }
 
         return view;
+    }
+
+    public void setListViewListener(ListView listView){
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent;
+                intent = new Intent(getActivity(), DisplayListingActivity.class);
+                String entryId = listings.get(position).getId();
+                String courseName = listings.get(position).getClassName();
+                intent.putExtra("ENTRY_ID", entryId);
+                intent.putExtra("COURSE_NAME", courseName);
+                getActivity().startActivity(intent);
+            }
+        });
     }
 
     public class LoadDataWait extends AsyncTask<Void,Void,Void>{
@@ -165,6 +181,7 @@ public class HomeFragment extends Fragment{
                 listView = (ListView) view.findViewById(R.id.home_list_view);
                 listView.setAdapter(adapter);
                 listView.setVisibility(View.VISIBLE);
+                setListViewListener(listView);
             }
             else {
                 Button subButton = (Button) view.findViewById(R.id.add_subs);

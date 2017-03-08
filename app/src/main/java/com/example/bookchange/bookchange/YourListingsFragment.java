@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Created by christopher on 2/27/17.
  */
 
-public class YourListings extends Fragment {
+public class YourListingsFragment extends Fragment {
     private final String ENTRY_KEY = "ENTRY_ID";
     private final String COURSE_KEY = "COURSE_NAME";
 

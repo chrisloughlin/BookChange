@@ -30,7 +30,7 @@ import java.util.ArrayList;
 This allows the user to display the listings that are currently posted for the course
  */
 
-public class CourseView extends Fragment {
+public class CourseListFragment extends Fragment {
     private String courseName;
     private final String COURSE_KEY2 = "course_name";
     private final String ENTRY_KEY = "ENTRY_ID";

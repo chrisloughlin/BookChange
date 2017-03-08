@@ -1,16 +1,12 @@
 package com.example.bookchange.bookchange;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * Created by christopher on 3/7/17.
@@ -26,7 +22,7 @@ public class DepartmentFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
-                CourseSelect fragment = new CourseSelect();
+                DeptSelectFragment fragment = new DeptSelectFragment();
                 bundle.putInt("department_int", position);
                 fragment.setArguments(bundle);
                 getFragmentManager().beginTransaction().add(fragment,"detail").addToBackStack(null)

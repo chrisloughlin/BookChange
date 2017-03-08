@@ -2,7 +2,6 @@ package com.example.bookchange.bookchange;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -14,8 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 /**
  * Created by Ted on 2/26/2017.
  */
@@ -24,7 +21,7 @@ import java.util.ArrayList;
 This fragment allows the user to select a course from the list of courses.
  */
 
-public class CourseSelect extends Fragment {
+public class DeptSelectFragment extends Fragment {
     private int departmentInt;
     private final String COURSE_KEY = "course_name";
 
@@ -102,7 +99,7 @@ public class CourseSelect extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // start a fragment with info about the clicked course
-                CourseView fragment = new CourseView();
+                CourseListFragment fragment = new CourseListFragment();
                 Bundle bundle = new Bundle();
                 String courseName = courses[position];
                 bundle.putString(COURSE_KEY,courseName);

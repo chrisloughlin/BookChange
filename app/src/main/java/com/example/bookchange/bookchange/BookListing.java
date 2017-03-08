@@ -1,5 +1,7 @@
 package com.example.bookchange.bookchange;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by christopher on 2/26/17.
  */
@@ -15,6 +17,7 @@ public class BookListing {
     private String mBookTitle;
     private String mClassName;
     private String mEmail;
+    private String bookPic = "";
 
     /*
 
@@ -45,6 +48,7 @@ public class BookListing {
     public void setBookTitle(String bookTitle){mBookTitle = bookTitle;}
     public void setClassName(String className){mClassName = className;}
     public void setEmail(String email){mEmail = email;}
+    public void setPic(String base64){ bookPic = base64;}
 
     public String getId(){return mId;}
     public String getPosterUsername(){return mPosterUsername;}
@@ -52,4 +56,5 @@ public class BookListing {
     public String getBookTitle(){return mBookTitle;}
     public String getClassName(){return mClassName;}
     public String getEmail(){return mEmail;}
+    public String getBookPic() {return bookPic;}
 }

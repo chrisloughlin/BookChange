@@ -13,7 +13,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -27,10 +27,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.soundcloud.android.crop.Crop;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 /**
  * Created by christopher on 2/27/17.
@@ -54,8 +54,10 @@ public class CreateListingActivity extends AppCompatActivity {
     public static final String CROP_KEY = "cropKey";
     Boolean fromCamera;
     private Uri takenUri, croppedUri;
-    private ImageView listingPic;
-    ImageButton picBtn;
+    private ImageView bookPic;
+//    ImageButton picBtn;
+
+    String encodedImage = "";
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,8 +80,11 @@ public class CreateListingActivity extends AppCompatActivity {
             mUserId = mUser.getUid(); // get the Uid
         }
 
-        picBtn = (ImageButton) findViewById(R.id.picBtn);
-        initializePicBtn();
+//        picBtn = (ImageButton) findViewById(R.id.picBtn);
+//        initializeImgView();
+        bookPic = (ImageView) findViewById(R.id.bookPic);
+        bookPic.setImageResource(R.drawable.ic_camera_alt_black_36dp);
+        initializeImgView();
         getCameraPermission();
         if(savedInstanceState != null) croppedUri = savedInstanceState.getParcelable(CROP_KEY);
     }
@@ -111,13 +116,13 @@ public class CreateListingActivity extends AppCompatActivity {
         }
         else {
             BookListing bookListing = new BookListing(userDisplayName, Double.parseDouble(price), bookTitle, courseName,mUser.getEmail());
+            bookListing.setPic(encodedImage);
             // insert a new listing in the firebaseDB under courses/coursename/listings
             DatabaseReference pushedListingsRef = mDatabase.child("courses").child(courseName).child("listings").push();
             bookListing.setId(pushedListingsRef.getKey());
             pushedListingsRef.setValue(bookListing);
             // insert a listing under users/mUserID/listings
             mDatabase.child("users").child(mUserId).child("listings").child(pushedListingsRef.getKey()).setValue(bookListing);
-            savePic();
             finish();
         }
     }
@@ -126,11 +131,11 @@ public class CreateListingActivity extends AppCompatActivity {
         finish();
     }
 
-    private void initializePicBtn() {
+    private void initializeImgView() {
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), "android.permission.CAMERA") != PackageManager.PERMISSION_GRANTED) {
             getCameraPermission();
         } else {
-            picBtn.setOnClickListener(new View.OnClickListener() {
+            bookPic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(CreateListingActivity.this);
@@ -160,9 +165,7 @@ public class CreateListingActivity extends AppCompatActivity {
 
         takenUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, takenUri);
-        if (intent.resolveActivity(this.getPackageManager()) != null)
-            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-//        CAMERA_CODE
+        startActivityForResult(intent, CAMERA_CODE);
     }
 
     private void choosePic(){
@@ -171,53 +174,12 @@ public class CreateListingActivity extends AppCompatActivity {
         startActivityForResult(intent, GALLERY_CODE);
     }
 
-    private void savePic() {
-
-        //firebase save images stuff here
-
-//        listingPic.buildDrawingCache();
-//        Bitmap bitmap = listingPic.getDrawingCache();
-//        try {
-//            FileOutputStream stream = openFileOutput("profile_photo.png", MODE_PRIVATE);
-//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//            stream.flush();
-//            stream.close();
-//        }
-//        catch (IOException exception) {
-//            exception.printStackTrace();
-//        }
-    }
-
-//    private void loadPic() {
-//        try {
-//            if(croppedUri != null) listingPic.setImageURI(croppedUri);
-//            else {
-//                FileInputStream stream = openFileInput("profile_photo.png");
-//                Bitmap bitmap = BitmapFactory.decodeStream(stream);
-//                listingPic.setImageBitmap(bitmap);
-//                stream.close();
-//            }
-//        }
-//        catch (IOException ioe) {
-//            listingPic.setImageResource(R.drawable.ic_book_black_48dp);
-//        }
-//    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode != RESULT_OK){
-            Toast.makeText(this, "Error while cropping!", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Error while cropping!", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        if (requestCode == REQUEST_IMAGE_CAPTURE) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            mImageLabel.setImageBitmap(imageBitmap);
-            encodeBitmapAndSaveToFirebase(imageBitmap);
-        }
-
-
 
         switch(requestCode) {
             case CAMERA_CODE:
@@ -240,6 +202,19 @@ public class CreateListingActivity extends AppCompatActivity {
         }
     }
 
+    public void encodeBitmap(Uri uri) {
+        try{
+            InputStream imageStream = getContentResolver().openInputStream(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            encodedImage = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+        }
+        catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+
     private void startCrop(Uri start){
         Uri end = Uri.fromFile(new File(getCacheDir(), "cropped"));
         Crop.of(start, end).asSquare().start(this);
@@ -247,7 +222,10 @@ public class CreateListingActivity extends AppCompatActivity {
 
     private void endCrop(int result, Uri uri){
         croppedUri = uri;
-        listingPic.setImageURI(croppedUri);
+        bookPic.setImageURI(croppedUri);
+//        bookPic.setVisibility(View.VISIBLE);
+        encodeBitmap(croppedUri);
+
     }
 
     private void getCameraPermission(){

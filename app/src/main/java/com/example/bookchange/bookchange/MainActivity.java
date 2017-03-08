@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
         frags.add(new HomeFragment());
 //       frags.add(new SubscriptionsFragment());
         frags.add(new ManageSubscriptionsFragment());
-        frags.add(new YourListings());
+        frags.add(new YourListingsFragment());
         frags.add(new AccountDisplayFragment());
         frags.add(new DepartmentFragment());
 
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.nav_listings){
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            YourListings fragment = (YourListings)frags.get(LISTINGS_INDEX);
+            YourListingsFragment fragment = (YourListingsFragment)frags.get(LISTINGS_INDEX);
             fragmentTransaction.replace(R.id.frag, fragment);
             fragmentTransaction.commit();
         }
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity
                     // The 'which' argument contains the index position
                     // launch an activity with the department's courses on click
                     Bundle bundle = new Bundle();
-                    CourseSelect fragment = new CourseSelect();
+                    DeptSelectFragment fragment = new DeptSelectFragment();
                     bundle.putInt("department_int", which);
                     fragment.setArguments(bundle);
                     FragmentManager fragmentManager = getActivity().getFragmentManager();
