@@ -86,7 +86,7 @@
         android:background="@null"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:src="@drawable/ic_camera_alt_white_36dp" />
+        android:src="@drawable/ic_add_a_photo_white_36dp" />
 
     <Button
         android:layout_width="@dimen/button_size"

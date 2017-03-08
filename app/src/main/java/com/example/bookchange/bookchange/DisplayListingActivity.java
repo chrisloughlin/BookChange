@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,8 +18,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.io.IOException;
 
 /**
  * Created by christopher on 2/27/17.
@@ -80,10 +77,20 @@ public class DisplayListingActivity extends AppCompatActivity {
 
                             ImageView bookPic = (ImageView) findViewById(R.id.bookPic);
                             if(!entry.getBookPic().isEmpty()){
-                                bookPic.setVisibility(View.VISIBLE);
                                 Bitmap decodedBitmap = decodeFromBase64(entry.getBookPic());
                                 bookPic.setImageBitmap(decodedBitmap);
                             }
+                            else{
+                                bookPic.getLayoutParams().width = 250;
+                                bookPic.getLayoutParams().height = 250;
+                                bookPic.setImageResource(R.drawable.noimage);
+                            }
+                            bookPic.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                }
+                            });
 
                             if(!mUser.getDisplayName().equals(entry.getPosterUsername())){
                                 Button delete = (Button) findViewById(R.id.delete_button);

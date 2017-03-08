@@ -7,14 +7,15 @@
     android:weightSum="1.0">
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/bookchange_small"
-
+        android:id="@+id/bookPic"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
         android:layout_gravity="center"
-        android:id="@+id/account_page_image"
-        android:layout_weight = ".25"
-        />
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:src="@drawable/bookchange_small" />
 
     <!--<com.makeramen.roundedimageview.RoundedImageView-->
         <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->

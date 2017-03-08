@@ -83,7 +83,7 @@ public class CreateListingActivity extends AppCompatActivity {
 //        picBtn = (ImageButton) findViewById(R.id.picBtn);
 //        initializeImgView();
         bookPic = (ImageView) findViewById(R.id.bookPic);
-        bookPic.setImageResource(R.drawable.ic_camera_alt_black_36dp);
+        bookPic.setImageResource(R.drawable.ic_add_a_photo_black_36dp);
         initializeImgView();
         getCameraPermission();
         if(savedInstanceState != null) croppedUri = savedInstanceState.getParcelable(CROP_KEY);
