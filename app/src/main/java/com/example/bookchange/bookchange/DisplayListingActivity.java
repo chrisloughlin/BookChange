@@ -95,8 +95,7 @@ public class DisplayListingActivity extends AppCompatActivity {
                             if(!mUser.getDisplayName().equals(entry.getPosterUsername())){
                                 Button delete = (Button) findViewById(R.id.delete_button);
                                 delete.setVisibility(View.GONE);
-                                Button complete = (Button) findViewById(R.id.finish_button);
-                                complete.setVisibility(View.GONE);
+
                             }
                             else{
                                 Button contact = (Button) findViewById(R.id.contact_button);
