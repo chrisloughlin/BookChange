@@ -164,7 +164,12 @@ public class CreateAccountActivity extends AppCompatActivity {
         if (email.equals("")) {
             mEmailField.setError("Required");
             isValid = false;
-        } else {
+        }
+        else if(!email.endsWith("@dartmouth.edu")){
+            mEmailField.setError("Must be Dartmouth Email");
+
+        } else
+            {
             mEmailField.setError(null);
         }
 

@@ -83,7 +83,7 @@ public class DisplayListingActivity extends AppCompatActivity {
                             else{
                                 bookPic.getLayoutParams().width = 250;
                                 bookPic.getLayoutParams().height = 250;
-                                bookPic.setImageResource(R.drawable.noimage);
+                                //bookPic.setImageResource(R.drawable.noimage);
                             }
                             bookPic.setOnClickListener(new View.OnClickListener() {
                                 @Override

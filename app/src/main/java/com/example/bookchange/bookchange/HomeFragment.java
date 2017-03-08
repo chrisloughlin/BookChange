@@ -41,6 +41,7 @@ public class HomeFragment extends Fragment{
     private Boolean waited = false;
     private ArrayList<BookListing> listings = new ArrayList<>();
     BookListingAdapter adapter;
+    private LoadDataWait loadDataWait;
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle savedInstanceState){
@@ -114,7 +115,8 @@ public class HomeFragment extends Fragment{
 
         Log.d("HomeTAG", "Listings size: "+ listings.size());
         if(!waited) {
-            new LoadDataWait().execute();
+            loadDataWait = new LoadDataWait();
+            loadDataWait.execute();
         }
         else if(listings.size()>0){
             ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
@@ -194,6 +196,13 @@ public class HomeFragment extends Fragment{
 
 
         }
+
+
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        loadDataWait.cancel(true);
     }
 }
 

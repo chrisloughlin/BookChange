@@ -1,5 +1,6 @@
 package com.example.bookchange.bookchange;
 
+
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -98,7 +99,7 @@ public class CreateListingActivity extends AppCompatActivity {
     public void onSaveListingClicked(View view){
         String bookTitle = ((EditText)findViewById(R.id.bookTitleEditText)).getText().toString();
         String price = ((EditText)findViewById(R.id.priceEditText)).getText().toString();
-        String courseName = ((EditText)findViewById(R.id.courseNameEditText)).getText().toString();
+        String courseName = ((TextView)findViewById(R.id.course_select_textView)).getText().toString();
         if (bookTitle.equals("")){
             Toast toast = Toast.makeText(this,"Add Book Title",Toast.LENGTH_SHORT);
             toast.show();
@@ -109,10 +110,10 @@ public class CreateListingActivity extends AppCompatActivity {
             toast.show();
             ((EditText)findViewById(R.id.priceEditText)).setError("Required");
         }
-        else if (courseName.equals("")){
+        else if (courseName.equals("None")){
            Toast toast = Toast.makeText(this,"Add Courses Name",Toast.LENGTH_SHORT);
             toast.show();
-            ((EditText)findViewById(R.id.courseNameEditText)).setError("Required");
+            ((TextView)findViewById(R.id.course_select_textView)).setError("Required");
         }
         else {
             BookListing bookListing = new BookListing(userDisplayName, Double.parseDouble(price), bookTitle, courseName,mUser.getEmail());
@@ -141,15 +142,15 @@ public class CreateListingActivity extends AppCompatActivity {
                     AlertDialog.Builder builder = new AlertDialog.Builder(CreateListingActivity.this);
                     builder.setTitle("Add Images of Your Book");
                     final CharSequence[] options = {"Take New Picture", "Select from Gallery"};
-                    final int camera = R.drawable.ic_photo_camera_black_24dp;
-                    final int gallery = R.drawable.ic_photo_library_black_24dp;
-//                    final int[] options = {camera, gallery};
+//                    final int[] options = {R.drawable.ic_photo_camera_black_24dp, R.drawable.ic_photo_library_black_24dp};
                     builder.setItems(options, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int item) {
                             if (options[item].equals("Take New Picture")) {
-//                            if("a"){
+//                            if(options[item].equals(R.drawable.ic_photo_camera_black_24dp)){
                                 takePic();
+                                Integer i = 0;
+                                int j = 1;
                             } else {
                                 choosePic();
                             }
