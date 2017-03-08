@@ -12,7 +12,7 @@ import android.widget.ListView;
  * Created by christopher on 3/7/17.
  */
 
-public class DepartmentFragment extends Fragment {
+public class CourseViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle savedInstanceState) {
         super.onCreateView(layoutInflater, viewGroup, savedInstanceState);
