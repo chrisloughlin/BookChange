@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
         frags.add(new ManageSubscriptionsFragment());
         frags.add(new YourListingsFragment());
         frags.add(new AccountDisplayFragment());
-        frags.add(new CourseViewFragment());
+        frags.add(new DeptSelectFragment());
 
         // Initialize mAuth, mUser, and mDatabase
         mAuth = FirebaseAuth.getInstance();
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_department) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            CourseViewFragment fragment = (CourseViewFragment) frags.get(DEP_INDEX);
+            DeptSelectFragment fragment = (DeptSelectFragment) frags.get(DEP_INDEX);
             fragmentTransaction.replace(R.id.frag, fragment);
             fragmentTransaction.commit();
         } else if (id == R.id.nav_subscriptions) {
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity
     public void onAddSubscriptionClicked(View view) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        CourseViewFragment fragment = (CourseViewFragment) frags.get(DEP_INDEX);
+        DeptSelectFragment fragment = (DeptSelectFragment) frags.get(DEP_INDEX);
         fragmentTransaction.add(fragment,"detail").addToBackStack(null).replace(R.id.frag, fragment);
         fragmentTransaction.commit();
     }
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity
                     // The 'which' argument contains the index position
                     // launch an activity with the department's courses on click
                     Bundle bundle = new Bundle();
-                    DeptSelectFragment fragment = new DeptSelectFragment();
+                    CourseSelectFragment fragment = new CourseSelectFragment();
                     bundle.putInt("department_int", which);
                     fragment.setArguments(bundle);
                     FragmentManager fragmentManager = getActivity().getFragmentManager();
