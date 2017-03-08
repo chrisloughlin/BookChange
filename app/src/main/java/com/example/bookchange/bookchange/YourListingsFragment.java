@@ -34,7 +34,9 @@ public class YourListingsFragment extends Fragment {
     private String mUserId;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
-    private ArrayList<BookListing> listings = new ArrayList<>();
+    private ArrayList<BookListing> listings;
+    private ChildEventListener listener;
+    public boolean StoppedByActivity = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -64,13 +66,13 @@ public class YourListingsFragment extends Fragment {
 
         // set up the listView
         ListView listView = (ListView) mView.findViewById(R.id.your_postings_list);
-        listings.clear();
+        listings = new ArrayList<>();
+//        listings.clear();
         final BookListingAdapter adapter = new BookListingAdapter(getActivity(), listings);
-
-        mDatabase.child("users").child(mUserId).child("listings").addChildEventListener(new ChildEventListener() {
+        listener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.d("ListingsTAG", "added a listing to the arrayList");
+                Log.d("ListingsTAG", "added a listing to the arrayList, yourListings");
                 BookListing newListing = dataSnapshot.getValue(BookListing.class);
                 listings.add(newListing);
                 adapter.notifyDataSetChanged();
@@ -82,7 +84,11 @@ public class YourListingsFragment extends Fragment {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                listings.remove(dataSnapshot.getValue(BookListing.class));
+                Log.d("DeleteTAG", "Got here");
+                Log.d("DeleteTAG", "Size of listings before remove: " + listings.size());
+                BookListing newListing = dataSnapshot.getValue(BookListing.class);
+                listings.remove(newListing);
+                Log.d("DeleteTAG", "Size of listings after remove: " + listings.size());
                 adapter.notifyDataSetChanged();
             }
 
@@ -93,10 +99,10 @@ public class YourListingsFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
-        });
-//        final ArrayList<BookListing> listings = dataSource.fetchEntriesByPosterUsername(account.getAccountName());
-//        dataSource.close();
-//        BookListingAdapter adapter = new BookListingAdapter(getActivity(), listings);
+        };
+
+        mDatabase.child("users").child(mUserId).child("listings").addChildEventListener(listener);
+
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -107,10 +113,26 @@ public class YourListingsFragment extends Fragment {
                 String courseName = listings.get(position).getClassName();
                 intent.putExtra(ENTRY_KEY, entryId);
                 intent.putExtra(COURSE_KEY, courseName);
+                StoppedByActivity = true;
                 getActivity().startActivity(intent);
             }
         });
 
         return mView;
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        StoppedByActivity = false;
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d("onStopTAG", "onStop was called");
+        if (!StoppedByActivity) {
+            mDatabase.child("users").child(mUserId).child("listings").removeEventListener(listener);
+        }
     }
 }

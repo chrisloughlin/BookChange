@@ -165,6 +165,7 @@ public class MainActivity extends AppCompatActivity
 //        intent.putExtra("account_name",account.getAccountName());
         // get display name from the mUser
         intent.putExtra("account_name", mUser.getDisplayName());
+        ((YourListingsFragment)frags.get(LISTINGS_INDEX)).StoppedByActivity = true;
         startActivity(intent);
     }
 
