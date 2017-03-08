@@ -249,7 +249,17 @@
         <item>AMEL 87</item>
     </string-array>
 
-    <sring-array name="BIOLCourses">
+    // incomplete
+    <string-array name="AMESCourses">
+        <item>AMES 4</item>
+        <item>AMES 5</item>
+        <item>AMES 6</item>
+        <item>AMES 8</item>
+        <item>AMES 9</item>
+        <item>AMES 10</item>
+    </string-array>
+
+    <string-array name="BIOLCourses">
         <item>BIOL 2</item>
         <item>BIOL 3</item>
         <item>BIOL 5</item>
@@ -306,7 +316,7 @@
         <item>BIOL 96</item>
         <item>BIOL 97</item>
         <item>BIOL 99</item>
-    </sring-array>
+    </string-array>
 
     <string-array name="CHEMCourses">
         <item>CHEM 5</item>

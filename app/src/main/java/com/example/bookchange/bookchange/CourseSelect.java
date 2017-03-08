@@ -48,6 +48,13 @@ public class CourseSelect extends Fragment {
         // set up the listView
         ListView coursesListView = (ListView) mView.findViewById(R.id.list);
         final String[] courses = { "CS 1", "CS 10", "CS 30", "CS 50", "CS 65" };
+        final String[][] courseArrays = {res.getStringArray(R.array.AAASCourses),
+                                        res.getStringArray(R.array.ANTHCourses),
+                                        res.getStringArray(R.array.ARTHCourses),
+                                        res.getStringArray(R.array.AMELCourses),
+                                        res.getStringArray(R.array.AMESCourses),
+                                        res.getStringArray(R.array.BIOLCourses),
+                                        };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_1, courses);
         coursesListView.setAdapter(adapter);
