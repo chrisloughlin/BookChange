@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 /**
@@ -18,6 +19,9 @@ public class DeptSelectFragment extends Fragment {
         super.onCreateView(layoutInflater, viewGroup, savedInstanceState);
         View view = layoutInflater.inflate(R.layout.departments_frag,viewGroup,false);
         ListView listView = (ListView) view.findViewById(R.id.departments_list_view);
+        String[] departments_array = getResources().getStringArray(R.array.departments_array);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),R.layout.custom_text_view,departments_array);
+        listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
