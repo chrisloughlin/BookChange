@@ -43,7 +43,8 @@
 
         <activity android:name=".CreateListingActivity"
             android:icon="@drawable/bookchange_small"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
 
         </activity>
 

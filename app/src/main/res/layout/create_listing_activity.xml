@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="@dimen/subtext_size"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:text="Book Title"/>
+        android:text="Book Title"
+        />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/bookTitleEditText"
-        android:background="@drawable/username_password_rect"/>
+        android:theme="@style/MyEditText"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="@dimen/subtext_size"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
@@ -32,13 +35,13 @@
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:id="@+id/priceEditText"
-        android:background="@drawable/username_password_rect"/>
+        android:theme="@style/MyEditText"/>
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="@dimen/subtext_size"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
@@ -50,7 +53,7 @@
             android:layout_width="wrap_content"
             android:id="@+id/course_select_textView"
             android:layout_height="match_parent"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="@dimen/subtext_size"
             android:layout_weight=".1"
             android:text="None"
@@ -60,12 +63,13 @@
             android:layout_height="wrap_content"
             android:onClick="onSelectCourseClicked"
             android:text="Select Course"
-            android:layout_gravity="end|bottom"/>
+            android:layout_gravity="end|bottom"
+            android:theme="@style/MyButton"/>
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="@dimen/subtext_size"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
@@ -73,14 +77,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/white_trans"
         android:textSize="@dimen/subtext_size"
         android:id="@+id/accountNameText"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="@dimen/subtext_size"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
@@ -115,12 +119,14 @@
             android:layout_height="wrap_content"
             android:layout_weight=".5"
             android:onClick="onSaveListingClicked"
-            android:text="Post"/>
+            android:text="Post"
+            android:theme="@style/MyButton"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
             android:onClick="onCancelListingClicked"
-            android:text="Cancel"/>
+            android:text="Cancel"
+            android:theme="@style/MyButton"/>
     </LinearLayout>
 </LinearLayout>
