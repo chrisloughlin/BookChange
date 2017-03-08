@@ -189,29 +189,5 @@ public class MainActivity extends AppCompatActivity
 //        account.removeSubscription(className);
 //    }
 
-    public static class DepartmentsFrag extends DialogFragment {
 
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle("Departments");
-
-            builder.setItems(R.array.departments_array, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    // The 'which' argument contains the index position
-                    // launch an activity with the department's courses on click
-                    Bundle bundle = new Bundle();
-                    CourseSelectFragment fragment = new CourseSelectFragment();
-                    bundle.putInt("department_int", which);
-                    fragment.setArguments(bundle);
-                    FragmentManager fragmentManager = getActivity().getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.frag, fragment);
-                    fragmentTransaction.commit();
-                }
-            });
-
-            return builder.create();
-        }
-    }
 }

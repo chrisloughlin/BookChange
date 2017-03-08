@@ -1,10 +1,14 @@
 package com.example.bookchange.bookchange;
 
 
+import android.app.Dialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -12,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -130,6 +135,104 @@ public class CreateListingActivity extends AppCompatActivity {
 
     public void onCancelListingClicked(View view){
         finish();
+    }
+
+    public void onSelectCourseClicked(View view){
+        DialogFragment dialogFragment = new DepartmentsFrag();
+        dialogFragment.show(getSupportFragmentManager(),"departmentsDialogFrag");
+    }
+
+    public static class DepartmentsFrag extends DialogFragment {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Departments");
+
+            builder.setItems(R.array.departments_array, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // The 'which' argument contains the index position
+                    // launch an activity with the department's courses on click
+                    Bundle bundle = new Bundle();
+                    DialogFragment fragment = new CourseFrag();
+                    bundle.putInt("department_int", which);
+                    fragment.setArguments(bundle);
+                    fragment.show(getFragmentManager(),"courseDialogFrag");
+                }
+            });
+
+            return builder.create();
+        }
+    }
+
+    public static class CourseFrag extends DialogFragment {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Departments");
+            Resources res = getResources();
+            int departmentInt = getArguments().getInt("department_int");
+            final String[][] courseArrays = {res.getStringArray(R.array.AAASCourses),
+                    res.getStringArray(R.array.ANTHCourses),
+                    res.getStringArray(R.array.ARTHCourses),
+                    res.getStringArray(R.array.AMELCourses),
+                    res.getStringArray(R.array.AMESCourses),
+                    res.getStringArray(R.array.BIOLCourses),
+                    res.getStringArray(R.array.CHEMCourses),
+                    res.getStringArray(R.array.CLSTCourses),
+                    res.getStringArray(R.array.COGSCourses),
+                    res.getStringArray(R.array.COCOCourses),
+                    res.getStringArray(R.array.COLTCourses),
+                    res.getStringArray(R.array.COSCCourses),
+                    res.getStringArray(R.array.EARSCourses),
+                    res.getStringArray(R.array.ECONCourses),
+                    res.getStringArray(R.array.EDUCCourses),
+                    res.getStringArray(R.array.ENGSCourses),
+                    res.getStringArray(R.array.ENGLCourses),
+                    res.getStringArray(R.array.ENVSCourses),
+                    res.getStringArray(R.array.FILMCourses),
+                    res.getStringArray(R.array.FRENCourses),
+                    res.getStringArray(R.array.ITALCourses),
+                    res.getStringArray(R.array.GEOGCourses),
+                    res.getStringArray(R.array.GERMCourses),
+                    res.getStringArray(R.array.GOVTCourses),
+                    res.getStringArray(R.array.HISTCourses),
+                    res.getStringArray(R.array.HUMCourses),
+                    res.getStringArray(R.array.JWSTCourses),
+                    res.getStringArray(R.array.LACSCourses),
+                    res.getStringArray(R.array.LATSCourses),
+                    res.getStringArray(R.array.LINGCourses),
+                    res.getStringArray(R.array.MATHCourses),
+                    res.getStringArray(R.array.MUSCourses),
+                    res.getStringArray(R.array.NASCourses),
+                    res.getStringArray(R.array.PHILCourses),
+                    res.getStringArray(R.array.ASTRCourses),
+                    res.getStringArray(R.array.PHYSCourses),
+                    res.getStringArray(R.array.PSYCCourses),
+                    res.getStringArray(R.array.RELCourses),
+                    res.getStringArray(R.array.RUSSCourses),
+                    res.getStringArray(R.array.SSOCCourses),
+                    res.getStringArray(R.array.SOCYCourses),
+                    res.getStringArray(R.array.SPANCourses),
+                    res.getStringArray(R.array.PORTCourses),
+                    res.getStringArray(R.array.SARTCourses),
+                    res.getStringArray(R.array.THEACourses),
+                    res.getStringArray(R.array.WGSSCourses)};
+
+            final String[] courses = courseArrays[departmentInt];
+
+            builder.setItems(courses, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // The 'which' argument contains the index position
+                    // launch an activity with the department's courses on click
+                    TextView textView = (TextView) getView().findViewById(R.id.course_select_textView);
+                    textView.setText(courses[which]);
+                }
+            });
+
+            return builder.create();
+        }
     }
 
     private void initializeImgView() {
