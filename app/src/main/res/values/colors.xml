@@ -6,6 +6,6 @@
     <color name="darkBackground">#424242</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="button_default">#00BCD4</color>
-    <color name="button_pressed">#0097A7</color>
+    <color name="button_default">#009688</color>
+    <color name="button_pressed">#00897B</color>
 </resources>

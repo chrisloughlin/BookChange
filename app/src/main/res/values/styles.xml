@@ -6,8 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlHighlight">@color/button_pressed</item>
-        <item name="colorButtonNormal">@color/button_default</item>
+        <item name="android:buttonStyle">@style/MyButton</item>
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="android:actionBarStyle">@style/ActionBar</item>
     </style>
@@ -28,6 +27,11 @@
 
     <style name="ActionBar" parent="Theme.AppCompat.Light">
         <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="MyButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/button_pressed</item>
+        <item name="colorButtonNormal">@color/button_default</item>
     </style>
 
 </resources>
