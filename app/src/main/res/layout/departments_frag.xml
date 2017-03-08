@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <TextView style="@style/MyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -16,7 +16,7 @@
         android:background="@android:color/darker_gray">
     </View>
 
-    <ListView
+    <ListView style="@style/MyTextView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:entries="@array/departments_array"

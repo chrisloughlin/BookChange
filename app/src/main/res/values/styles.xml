@@ -28,5 +28,8 @@
         <item name="colorControlActivated">@color/editTextInput</item>
     </style>
 
+    <style name="MyTextView" parent="@android:style/Theme.Material">
+        <item name="android:textColor">@color/white</item>
+    </style>
 
 </resources>

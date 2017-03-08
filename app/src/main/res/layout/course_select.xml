@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
-    <TextView
+    <TextView style="@style/MyTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:id="@+id/title_department"/>
+        android:id="@+id/title_department"
+        />
 
     <View
         android:layout_width="match_parent"
@@ -16,7 +18,7 @@
         android:background="@android:color/darker_gray">
     </View>
 
-    <ListView
+    <ListView style="@style/MyTextView"
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>

@@ -1,6 +1,7 @@
 package com.example.bookchange.bookchange;
 
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.graphics.Color;
+import android.widget.TextView;
 
 /**
  * Created by christopher on 3/7/17.
@@ -32,6 +35,7 @@ public class DeptSelectFragment extends Fragment {
                 getFragmentManager().beginTransaction().add(fragment,"detail").addToBackStack(null)
                         .replace(R.id.frag, fragment).commit();
             }
+
         });
         return view;
     }

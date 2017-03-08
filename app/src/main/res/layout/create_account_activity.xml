@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/off_white"
         android:textSize="@dimen/title_text_size"
         android:text="Create Account"/>
 
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/off_white"
         android:textSize="@dimen/subtext_size"
         android:text="Email"/>
     <EditText
@@ -27,14 +27,14 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:theme="@style/MyEditText"
-        android:hint="Password"
-        android:textColor="@color/white"
+        android:hint="YourName@Email.com"
+        android:textColor="@color/off_white"
         android:textColorHint="@color/white_trans"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/off_white"
         android:textSize="@dimen/subtext_size"
         android:text="Username"/>
     <EditText
@@ -44,14 +44,14 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:theme="@style/MyEditText"
-        android:hint="Password"
-        android:textColor="@color/white"
+        android:hint="Username"
+        android:textColor="@color/off_white"
         android:textColorHint="@color/white_trans"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/off_white"
         android:textSize="@dimen/subtext_size"
         android:text="Password"/>
     <EditText
@@ -62,14 +62,14 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:theme="@style/MyEditText"
-        android:hint="Password"
-        android:textColor="@color/white"
+        android:hint="Username"
+        android:textColor="@color/off_white"
         android:textColorHint="@color/white_trans"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/off_white"
         android:textSize="@dimen/subtext_size"
         android:text="Confirm Password"/>
     <EditText
@@ -81,7 +81,7 @@
         android:layout_marginRight="20dp"
         android:theme="@style/MyEditText"
         android:hint="Password"
-        android:textColor="@color/white"
+        android:textColor="@color/off_white"
         android:textColorHint="@color/white_trans"/>
 
     <Button
