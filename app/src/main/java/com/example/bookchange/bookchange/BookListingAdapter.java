@@ -44,6 +44,9 @@ public class BookListingAdapter extends ArrayAdapter {
         textView.setText(topLine);
         textView2.setText(bottomLine);
 
+        textView.setTextColor(getContext().getResources().getColor(R.color.white));
+        textView2.setTextColor(getContext().getResources().getColor(R.color.white));
+
         return view;
     }
 }

@@ -139,6 +139,7 @@ public class DisplayListingActivity extends AppCompatActivity {
     public void onCloseClicked(View view){
         finish();
     }
+
     public void onCompleteTransactionClicked(View view){
         mDatabase.child("courses").child(courseName).child("listings").child(entryID).removeValue();
         mDatabase.child("users").child(mUserId).child("listings").child(entryID).removeValue();
