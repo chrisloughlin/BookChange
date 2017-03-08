@@ -26,7 +26,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/username_password_rect"/>
+        android:theme="@style/MyEditText"
+        android:hint="Password"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white_trans"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,7 +43,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/username_password_rect"/>
+        android:theme="@style/MyEditText"
+        android:hint="Password"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white_trans"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,7 +61,10 @@
         android:id="@+id/passwordField"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/username_password_rect"/>
+        android:theme="@style/MyEditText"
+        android:hint="Password"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white_trans"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -70,7 +79,10 @@
         android:id="@+id/passwordField2"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/username_password_rect"/>
+        android:theme="@style/MyEditText"
+        android:hint="Password"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white_trans"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -94,13 +106,15 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:onClick="onCreateClicked"
-        android:text="Create" />
+        android:text="Create"
+        android:theme="@style/MyButton"/>
 
     <Button
         android:layout_width="@dimen/button_size"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:onClick="onCancelClicked"
-        android:text="Cancel" />
+        android:text="Cancel"
+        android:theme="@style/MyButton"/>
 
 </LinearLayout>
