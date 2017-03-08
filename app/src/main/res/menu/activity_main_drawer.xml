@@ -14,9 +14,6 @@
     <group android:id="@+id/account_group"
         android:checkableBehavior="single">
             <item
-                android:id="@+id/nav_account"
-                android:title="Account"/>
-            <item
                 android:id="@+id/nav_listings"
                 android:title="Your Listings" />
             <item
