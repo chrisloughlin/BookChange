@@ -75,6 +75,9 @@ public class MainActivity extends AppCompatActivity
             finish();
         } else {
             mUserId = mUser.getUid(); // get the Uid
+            // start the subscription checking service
+            Intent notificationServiceIntent = new Intent(this, NotificationService.class);
+            startService(notificationServiceIntent);
         }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
