@@ -134,7 +134,7 @@ public class NotificationService extends Service{
         Notification.Builder builder = new Notification.Builder(this);
         builder.setContentTitle("BookChange");
         builder.setContentText("New listing!");
-        builder.setSmallIcon(R.drawable.icon); //placeholder icon taken from example code
+        builder.setSmallIcon(R.drawable.bookchange_small); //placeholder icon taken from example code
         builder.setContentIntent(PendingIntent.getActivity(this, 0, i, 0));
         Notification notification = builder.build();
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
