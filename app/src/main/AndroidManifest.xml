@@ -12,7 +12,7 @@
         android:icon="@drawable/bookchange_small"
         android:label="BookChange"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light">
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
         <activity

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/side_nav_bar">
+    android:background="@color/background">
 
     <ImageView
         android:layout_gravity="center"
@@ -24,8 +24,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/username_password_rect"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:theme="@style/MyEditText"
+        android:hint="yourname@email.com"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white_trans"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,8 +43,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/username_password_rect"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:theme="@style/MyEditText"
+        android:hint="Password"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white_trans"
+        />
     <Button
         android:id="@+id/LogIn"
         android:layout_width="@dimen/button_size"
@@ -49,13 +56,15 @@
         android:layout_marginTop="50dp"
         android:layout_gravity="center"
         android:onClick="onLoginClicked"
-        android:text="Log In"/>
+        android:text="Log In"
+        android:theme="@style/MyButton"/>
     <Button
         android:id="@+id/CreateAccount"
         android:layout_width="@dimen/button_size"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:onClick="onCreateAccountClicked"
-        android:text="Create Account"/>
+        android:text="Create Account"
+        android:theme="@style/MyButton"/>
 
 </LinearLayout>

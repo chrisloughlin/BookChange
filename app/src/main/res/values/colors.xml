@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF9800</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#4DB6AC</color>
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00796B</color>
+    <color name="colorPrimaryLight">#A7FFEB</color>
+    <color name="colorAccent">#FF9800</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="forestGreen">#228b22</color>
-    <color name="button_color">#3269c1</color>
+    <color name="white_trans">#20FFFFFF</color>
+    <color name="background">#263238</color>
+    <color name="button_color">#009688</color>
+    <color name="button_pressed">#B2DFDB</color>
+    <color name="editTextColor">#009688</color>
+    <color name="editTextInput">#B2DFDB</color>
 </resources>
