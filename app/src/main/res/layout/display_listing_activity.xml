@@ -25,17 +25,20 @@
         android:textColor="@color/black"
         android:textSize="@dimen/subtext_size"
         android:layout_marginTop="20dp"
+        android:layout_gravity="center"
         android:text="Book Title"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:layout_gravity="center"
         android:textSize="@dimen/subtext_size"
         android:id="@+id/bookTitleTextView"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:layout_gravity="center"
         android:textSize="@dimen/subtext_size"
         android:layout_marginTop="20dp"
         android:text="Price" />
@@ -43,12 +46,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:layout_gravity="center"
         android:textSize="@dimen/subtext_size"
         android:id="@+id/priceTextView"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:layout_gravity="center"
         android:textSize="@dimen/subtext_size"
         android:layout_marginTop="20dp"
         android:text="Course Name" />
@@ -56,12 +61,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:layout_gravity="center"
         android:textSize="@dimen/subtext_size"
         android:id="@+id/courseNameTextView"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:layout_gravity="center"
         android:textSize="@dimen/subtext_size"
         android:layout_marginTop="20dp"
         android:text="Poster Name"/>
@@ -69,15 +76,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:layout_gravity="center"
         android:textSize="@dimen/subtext_size"
         android:id="@+id/accountNameTextView"/>
     <TextView
+        android:id="@+id/info1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textSize="10sp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
+        android:visibility="gone"
         android:text="Tap to Enlarge Image"/>
     <ImageView
         android:id="@+id/bookPic"

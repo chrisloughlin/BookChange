@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by christopher on 2/27/17.
  */
@@ -78,9 +80,11 @@ public class DisplayListingActivity extends AppCompatActivity {
                             accountNameTextView.setText(entry.getPosterUsername());
 
                             final ImageView bookPic = (ImageView) findViewById(R.id.bookPic);
+                            final TextView info1 = (TextView) findViewById(R.id.info1);
                             if(!entry.getBookPic().isEmpty()){
                                 final Bitmap decodedBitmap = decodeFromBase64(entry.getBookPic());
                                 bookPic.setVisibility(View.VISIBLE);
+                                info1.setVisibility(View.VISIBLE);
                                 bookPic.setImageBitmap(decodedBitmap);
                                 final ImageView expandedImage = (ImageView) findViewById(R.id.expandedImage);
                                 final TextView info = (TextView) findViewById(R.id.info);
