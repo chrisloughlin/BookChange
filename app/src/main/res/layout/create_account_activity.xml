@@ -83,22 +83,6 @@
         android:hint="Password"
         android:textColor="@color/white"
         android:textColorHint="@color/white_trans"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="@dimen/subtext_size"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="Add Picture to Profile"/>
-    <ImageButton
-        android:id="@+id/picBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:src="@drawable/ic_add_a_photo_white_36dp" />
 
     <Button
         android:layout_width="@dimen/button_size"

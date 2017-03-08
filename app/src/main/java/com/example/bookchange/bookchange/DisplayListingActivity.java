@@ -3,9 +3,11 @@ package com.example.bookchange.bookchange;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -75,22 +77,38 @@ public class DisplayListingActivity extends AppCompatActivity {
                             TextView accountNameTextView = (TextView) findViewById(R.id.accountNameTextView);
                             accountNameTextView.setText(entry.getPosterUsername());
 
-                            ImageView bookPic = (ImageView) findViewById(R.id.bookPic);
+                            final ImageView bookPic = (ImageView) findViewById(R.id.bookPic);
                             if(!entry.getBookPic().isEmpty()){
-                                Bitmap decodedBitmap = decodeFromBase64(entry.getBookPic());
+                                final Bitmap decodedBitmap = decodeFromBase64(entry.getBookPic());
+                                bookPic.setVisibility(View.VISIBLE);
                                 bookPic.setImageBitmap(decodedBitmap);
+                                final ImageView expandedImage = (ImageView) findViewById(R.id.expandedImage);
+                                final TextView info = (TextView) findViewById(R.id.info);
+                                bookPic.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        bookPic.setVisibility(View.GONE);
+                                        info.setVisibility(View.VISIBLE);
+                                        expandedImage.setVisibility(View.VISIBLE);
+                                        expandedImage.setImageBitmap(decodedBitmap);
+
+                                        expandedImage.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                expandedImage.setVisibility(View.GONE);
+                                                info.setVisibility(View.GONE);
+                                                bookPic.setVisibility(View.VISIBLE);
+                                                bookPic.setImageBitmap(decodedBitmap);
+                                            }
+                                        });
+                                    }
+                                });
                             }
                             else{
                                 bookPic.getLayoutParams().width = 250;
                                 bookPic.getLayoutParams().height = 250;
-                                //bookPic.setImageResource(R.drawable.noimage);
+                                bookPic.setImageResource(R.drawable.noimage);
                             }
-                            bookPic.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-
-                                }
-                            });
 
                             if(!mUser.getDisplayName().equals(entry.getPosterUsername())){
                                 Button delete = (Button) findViewById(R.id.delete_button);
@@ -123,6 +141,9 @@ public class DisplayListingActivity extends AppCompatActivity {
     public void onContactClicked(View view){
         TextView emailTextView = (TextView) findViewById(R.id.emailTextView);
         String posterEmail = emailTextView.getText().toString();
+
+//        mAuth.
+
         final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
         intent.setType("plain/text");
         intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{posterEmail});
@@ -141,6 +162,7 @@ public class DisplayListingActivity extends AppCompatActivity {
     }
 
     public void onCompleteTransactionClicked(View view){
+
         mDatabase.child("courses").child(courseName).child("listings").child(entryID).removeValue();
         mDatabase.child("users").child(mUserId).child("listings").child(entryID).removeValue();
         finish();

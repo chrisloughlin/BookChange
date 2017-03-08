@@ -2,6 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:text="Tap to Shrink Image"
+        android:visibility="gone"/>
+    <ImageView
+        android:id="@+id/expandedImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,6 +71,14 @@
         android:textColor="@color/black"
         android:textSize="@dimen/subtext_size"
         android:id="@+id/accountNameTextView"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Tap to Enlarge Image"/>
     <ImageView
         android:id="@+id/bookPic"
         android:layout_width="250dp"
@@ -62,7 +87,8 @@
         android:layout_weight="1"
         android:layout_gravity="center"
         android:focusable="true"
-        android:focusableInTouchMode="true"/>
+        android:focusableInTouchMode="true"
+        android:visibility="gone"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

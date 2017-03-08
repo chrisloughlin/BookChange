@@ -250,7 +250,7 @@ public class CreateListingActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(CreateListingActivity.this);
-                    builder.setTitle("Add Images of Your Book");
+                    builder.setTitle("Add an Image of Your Book");
                     final CharSequence[] options = {"Take New Picture", "Select from Gallery"};
 //                    final int[] options = {R.drawable.ic_photo_camera_black_24dp, R.drawable.ic_photo_library_black_24dp};
                     builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -259,8 +259,6 @@ public class CreateListingActivity extends AppCompatActivity {
                             if (options[item].equals("Take New Picture")) {
 //                            if(options[item].equals(R.drawable.ic_photo_camera_black_24dp)){
                                 takePic();
-                                Integer i = 0;
-                                int j = 1;
                             } else {
                                 choosePic();
                             }

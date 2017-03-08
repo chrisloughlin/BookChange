@@ -1,13 +1,18 @@
 package com.example.bookchange.bookchange;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,7 +35,6 @@ public class CreateAccountActivity extends AppCompatActivity {
     private EditText mPasswordField;
     private EditText mConfirmField;
     private EditText mUsernameField;
-
     // required for Firebase authentication
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -58,9 +62,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 if(user != null) {
                     // User is signed in
                     // set up (Should we have a global with the Uid?)
-                    Log.d("OtherTAG", "Got past getting current user");
                     if (user != null){
-                        Log.d("OtherTAG", "Got into the if statement");
                         String userName = mUsernameField.getText().toString();
                         // set the user's display name
                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
@@ -68,11 +70,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                         user.updateProfile(profileUpdates);
 
                         // send a verification email to the user
-                        Log.d("EmailTAG", "got into the if statement");
                         user.sendEmailVerification();
-                        Toast.makeText(CreateAccountActivity.this,
-                                "Verification email sent to" + " " + user.getEmail(),
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateAccountActivity.this, "Verification email sent to" + " " + user.getEmail(), Toast.LENGTH_SHORT).show();
 
                     }
                 } else {

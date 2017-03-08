@@ -14,37 +14,21 @@ public class BookchangeAccount {
     private String emailAddress;
 //    private ArrayList<String> subscriptions = new ArrayList<>();
     private String acctPic = "";
-    private int totalStars;
+    private int totalRatings;
     private int avgRating;
+    private ArrayList<String> pendingTransactions = new ArrayList<>();
+    private ArrayList<String> contactedBy = new ArrayList<>();
 
     public BookchangeAccount(String name, String address){
         accountName = name;
         emailAddress = address;
-        totalStars = 0;
+        totalRatings = 0;
+        avgRating = 0;
     }
-
-//    public void addSubscription(String subscription){
-//        if(!subscriptions.contains(subscription)){
-//          subscriptions.add(subscription);
-//        }
-//    }
-//
-//    public void removeSubscription(String subscription){
-//        if(subscriptions.contains(subscription)){
-//            subscriptions.remove(subscription);
-//        }
-//    }
 
     public void setAcctPic(String pic) { acctPic = pic; }
-    public String getAcctPic(){ return acctPic; }
-    public String getAccountName(){return accountName;}
+    public String getAcctPic() { return acctPic; }
+    public String getAccountName(){ return accountName; }
 
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-//    public ArrayList<String> getSubscriptions() {
-//        return subscriptions;
-//    }
-
+    public String getEmailAddress() { return emailAddress; }
 }
