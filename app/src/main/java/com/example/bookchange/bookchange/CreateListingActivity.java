@@ -148,6 +148,8 @@ public class CreateListingActivity extends AppCompatActivity {
 //                            if (options[item].equals("Take New Picture")) {
                             if(options[item].equals(R.drawable.ic_photo_camera_black_24dp)){
                                 takePic();
+                                Integer i = 0;
+                                int j = 1;
                             } else {
                                 choosePic();
                             }
