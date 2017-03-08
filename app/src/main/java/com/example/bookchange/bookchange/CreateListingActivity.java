@@ -226,13 +226,20 @@ public class CreateListingActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     // The 'which' argument contains the index position
                     // launch an activity with the department's courses on click
-//                    TextView textView = (TextView) getView().findViewById(R.id.course_select_textView);
-//                    textView.setText(courses[which]);
+                    CreateListingActivity createListingActivity = (CreateListingActivity) getActivity();
+                    createListingActivity.setCourseText(courses[which]);
+
                 }
             });
 
             return builder.create();
         }
+    }
+
+    public void setCourseText(String text){
+        TextView textView = (TextView) findViewById(R.id.course_select_textView);
+        textView.setText(text);
+
     }
 
     private void initializeImgView() {
