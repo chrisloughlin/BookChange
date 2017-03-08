@@ -32,6 +32,7 @@ public class NotificationService extends Service{
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private String userId;
+    private String courseName;
 
     public void onCreate() {
         super.onCreate();
@@ -43,7 +44,8 @@ public class NotificationService extends Service{
         mDatabase.child("users").child(userId).child("subscriptions").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                mDatabase.child("courses").child(dataSnapshot.getValue(String.class)).child("listings")
+                courseName = dataSnapshot.getValue(String.class);
+                mDatabase.child("courses").child(courseName).child("listings")
                         .addChildEventListener(new ChildEventListener() {
                             @Override
                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -131,7 +133,7 @@ public class NotificationService extends Service{
         Intent i = new Intent(this, MainActivity.class);
         Notification.Builder builder = new Notification.Builder(this);
         builder.setContentTitle("BookChange");
-        builder.setContentText("New listing!");
+        builder.setContentText("New listing for " + courseName + "!");
         builder.setSmallIcon(R.drawable.bookchange_small); //placeholder icon taken from example code
         builder.setContentIntent(PendingIntent.getActivity(this, 0, i, 0));
         Notification notification = builder.build();
