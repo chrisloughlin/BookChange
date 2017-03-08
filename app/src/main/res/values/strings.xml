@@ -820,6 +820,49 @@
         <item>ENGL 98</item>
     </string-array>
 
+    <string-array name="ENVSCourses">
+        <item>ENVS 2</item>
+        <item>ENVS 3</item>
+        <item>ENVS 7</item>
+        <item>ENVS 10</item>
+        <item>ENVS 11</item>
+        <item>ENVS 12</item>
+        <item>ENVS 15</item>
+        <item>ENVS 16</item>
+        <item>ENVS 17</item>
+        <item>ENVS 18</item>
+        <item>ENVS 19</item>
+        <item>ENVS 20</item>
+        <item>ENVS 25</item>
+        <item>ENVS 28</item>
+        <item>ENVS 30</item>
+        <item>ENVS 39</item>
+        <item>ENVS 40</item>
+        <item>ENVS 42</item>
+        <item>ENVS 44</item>
+        <item>ENVS 45</item>
+        <item>ENVS 50</item>
+        <item>ENVS 53</item>
+        <item>ENVS 55</item>
+        <item>ENVS 56</item>
+        <item>ENVS 60</item>
+        <item>ENVS 61</item>
+        <item>ENVS 65</item>
+        <item>ENVS 67</item>
+        <item>ENVS 70</item>
+        <item>ENVS 72</item>
+        <item>ENVS 79</item>
+        <item>ENVS 80.01</item>
+        <item>ENVS 80.02</item>
+        <item>ENVS 80.03</item>
+        <item>ENVS 80.08</item>
+        <item>ENVS 83</item>
+        <item>ENVS 84</item>
+        <item>ENVS 89</item>
+        <item>ENVS 90</item>
+        <item>ENVS 91</item>
+    </string-array>
+
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
