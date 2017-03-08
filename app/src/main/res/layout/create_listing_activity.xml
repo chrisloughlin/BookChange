@@ -21,7 +21,8 @@
         android:textColor="@color/white"
         android:textAlignment="center"
         android:id="@+id/bookTitleEditText"
-        android:theme="@style/MyEditText"/>
+        android:theme="@style/MyEditText"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +40,8 @@
         android:textColor="@color/white"
         android:textAlignment="center"
         android:id="@+id/priceEditText"
-        android:theme="@style/MyEditText"/>
+        android:theme="@style/MyEditText"
+        />
 
 
     <TextView
