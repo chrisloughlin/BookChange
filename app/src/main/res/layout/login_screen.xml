@@ -26,7 +26,7 @@
         android:layout_marginRight="20dp"
         android:layout_gravity="center"
         android:theme="@style/MyEditText"
-        android:hint="yourname@email.com"
+        android:hint="username@email.com"
         android:textColor="@color/white"
         android:textColorHint="@color/white_trans"/>
     <TextView
