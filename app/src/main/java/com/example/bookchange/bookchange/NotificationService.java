@@ -113,8 +113,6 @@ public class NotificationService extends Service{
     public int onStartCommand(Intent intent, int flags, int startId){
         if (!serviceIsStarted) {
             serviceIsStarted = true;
-
-            showNotification();
         }
         // makes sure onStartCommand is called after a service is recreated
         return START_NOT_STICKY;
