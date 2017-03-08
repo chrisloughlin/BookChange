@@ -54,6 +54,16 @@
         android:textColor="@color/black"
         android:textSize="@dimen/subtext_size"
         android:id="@+id/accountNameTextView"/>
+    <ImageView
+        android:id="@+id/bookPic"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:visibility="gone"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

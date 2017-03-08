@@ -1,11 +1,15 @@
 package com.example.bookchange.bookchange;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,6 +19,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.io.IOException;
 
 /**
  * Created by christopher on 2/27/17.
@@ -38,18 +44,13 @@ public class DisplayListingActivity extends AppCompatActivity {
         setContentView(R.layout.display_listing_activity);
 
         Long rowId = getIntent().getLongExtra(ENTRY_KEY, 0);
-        Log.d("DisplayEntry: ", "" + rowId);
         entryID = getIntent().getStringExtra(ENTRY_KEY);
         courseName = getIntent().getStringExtra(COURSE_KEY);
-        Log.d("DisplayTAG", entryID);
-        Log.d("DisplayTAG", courseName);
 
         // Initialize mAuth, mUser, and mDatabase
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         String email;
-        // get keys and course names so we can find the listing in the database
-//        listingKey = entry.getId();
 
         // make sure the user is logged in
         if (mUser == null) {
@@ -76,8 +77,14 @@ public class DisplayListingActivity extends AppCompatActivity {
                             courseNameTextView.setText(entry.getClassName());
                             TextView accountNameTextView = (TextView) findViewById(R.id.accountNameTextView);
                             accountNameTextView.setText(entry.getPosterUsername());
-                            Log.d("User ID: ", mUser.getDisplayName());
-                            Log.d("Entry Poster:", entry.getPosterUsername());
+
+                            ImageView bookPic = (ImageView) findViewById(R.id.bookPic);
+                            if(!entry.getBookPic().isEmpty()){
+                                bookPic.setVisibility(View.VISIBLE);
+                                Bitmap decodedBitmap = decodeFromBase64(entry.getBookPic());
+                                bookPic.setImageBitmap(decodedBitmap);
+                            }
+
                             if(!mUser.getDisplayName().equals(entry.getPosterUsername())){
                                 Button delete = (Button) findViewById(R.id.delete_button);
                                 delete.setVisibility(View.GONE);
@@ -99,16 +106,11 @@ public class DisplayListingActivity extends AppCompatActivity {
                     }
                 }
         );
-//        TextView bookTitleTextView = (TextView) findViewById(R.id.bookTitleTextView);
-//        bookTitleTextView.setText(entry.getBookTitle());
-//        TextView priceTextView = (TextView) findViewById(R.id.priceTextView);
-//        priceTextView.setText(""+ entry.getPrice());
-//        TextView courseNameTextView = (TextView) findViewById(R.id.courseNameTextView);
-//        courseNameTextView.setText(entry.getClassName());
-//        TextView accountNameTextView = (TextView) findViewById(R.id.accountNameTextView);
-//        accountNameTextView.setText(entry.getPosterUsername());
+    }
 
-
+    public static Bitmap decodeFromBase64(String image){
+        byte[] decodedByteArray = Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 
     public void onContactClicked(View view){
