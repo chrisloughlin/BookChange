@@ -95,7 +95,7 @@ public class CourseSelectFragment extends Fragment {
 
         final String[] courses = courseArrays[departmentInt];
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, courses);
+                R.layout.custom_text_view, courses);
         coursesListView.setAdapter(adapter);
         coursesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

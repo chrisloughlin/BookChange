@@ -93,13 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".33"
-            android:onClick="onCompleteTransactionClicked"
-            android:id="@+id/finish_button"
-            android:text="Complete Transaction"/>
+
             />
         <Button
             android:layout_width="wrap_content"
